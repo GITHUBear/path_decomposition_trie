@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/bit_util.h
+cstdint
+-
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h
+vector
+-
+bit_util.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/bit_util.h
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/library.cpp
+library.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/library.h
+bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h
+iostream
+-
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/library.h
+
