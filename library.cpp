@@ -1,5 +1,5 @@
 #include "library.h"
-#include "bit_vector.h"
+#include "rank_select_bit_vector.h"
 
 #include <iostream>
 

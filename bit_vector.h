@@ -466,7 +466,7 @@ namespace succinct {
 
             // skip to the k-th one after the current position
             // `k` starts from 0
-            // After `skip`, `m_buf_` points to the k-th 1-bit.
+            // After `skip`, `m_pos_` points to the k-th 1-bit.
             void skip(uint64_t k)
             {
                 uint64_t skipped = 0;
@@ -502,6 +502,8 @@ namespace succinct {
             }
 
             // skip to the k-th zero after the current position
+            // `k` starts from 0
+            // After `skip0`, `m_pos_` points to the k-th 0-bit.
             void skip0(uint64_t k)
             {
                 uint64_t skipped = 0;
@@ -522,7 +524,7 @@ namespace succinct {
         private:
             const uint64_t* m_data_;
             uint64_t m_pos_;
-            uint64_t m_buf_;
+            uint64_t m_buf_;           // m_buf_ is aligned
         };
 
     protected:

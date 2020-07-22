@@ -6,6 +6,7 @@ CMakeFiles/path_decomposition_trie.dir/library.cpp.o: ../bit_vector.h
 CMakeFiles/path_decomposition_trie.dir/library.cpp.o: ../library.cpp
 CMakeFiles/path_decomposition_trie.dir/library.cpp.o: ../library.h
 CMakeFiles/path_decomposition_trie.dir/library.cpp.o: ../mappable_vector.h
+CMakeFiles/path_decomposition_trie.dir/library.cpp.o: ../rank_select_bit_vector.h
 
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../bit_util.h
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../bit_vector.h
