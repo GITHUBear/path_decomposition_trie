@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "bit_util.h"
+#include "mappable_vector.h"
 
 namespace succinct {
     class BitVectorBuilder {
@@ -172,6 +173,11 @@ namespace succinct {
             std::swap(m_cur_word_, other.m_cur_word_);
         }
 
+        bits_t& move_bits() {
+            assert(word_for(m_size_) == m_bits_.size());
+            return m_bits_;
+        }
+
 
         uint64_t size() const {
             return m_size_;
@@ -183,15 +189,345 @@ namespace succinct {
         }
 
         bits_t m_bits_;
-        uint64_t m_size_;
+        uint64_t m_size_;           // bit size
         uint64_t *m_cur_word_;
     };
 
     class BitVector {
     public:
+        BitVector(): m_size_(0) {}
 
-    private:
-        uint64_t m_size_;
+        // use a boolean vector to create a new bit vector.
+        BitVector(const std::vector<bool>& bools) {
+            std::vector<uint64_t> bits;
+            const uint64_t first_mask = uint64_t(1);
+            uint64_t mask = first_mask;
+            uint64_t cur_val = 0;
+            m_size_ = 0;
+            for (auto bit : bools) {
+                if (bit) {
+                    cur_val |= mask;
+                }
+                mask <<= 1;
+                m_size_ += 1;
+                if (!mask) {
+                    bits.push_back(cur_val);
+                    mask = first_mask;
+                    cur_val = 0;
+                }
+            }
+            if (mask != first_mask) {
+                bits.push_back(cur_val);
+            }
+            m_bits_.steal(bits);
+        }
+
+        // create BitVector from BitVectorBuilder.
+        BitVector(BitVectorBuilder* builder) {
+            m_size_ = builder->size();
+            m_bits_.steal(builder->move_bits());
+        }
+
+        void swap(BitVector& other) {
+            std::swap(other.m_size_, m_size_);
+            other.m_bits_.swap(m_bits_);
+        }
+
+        inline size_t size() const {
+            return m_size_;
+        }
+
+        // get bit at `pos`.
+        inline bool operator[](uint64_t pos) const {
+            assert(pos < m_size_);
+            uint64_t block = pos / 64;
+            assert(block < m_bits_.size());
+            uint64_t shift = pos % 64;
+            return (m_bits_[block] >> shift) & 1;
+        }
+
+        // `len` <= 64
+        inline uint64_t get_bits(uint64_t pos, uint64_t len) const {
+            assert(pos + len <= size());
+            if (!len) {
+                return 0;
+            }
+            uint64_t block = pos / 64;
+            uint64_t shift = pos % 64;
+            uint64_t mask = -(len == 64) | ((1ULL << len) - 1);
+            if (shift + len <= 64) {
+                return m_bits_[block] >> shift & mask;
+            } else {
+                return (m_bits_[block] >> shift) | (m_bits_[block + 1] << (64 - shift) & mask);
+            }
+        }
+
+        // same as get_bits(pos, 64) but it can extend further size(), padding with zeros
+        inline uint64_t get_word(uint64_t pos) const
+        {
+            assert(pos < size());
+            uint64_t block = pos / 64;
+            uint64_t shift = pos % 64;
+            uint64_t word = m_bits_[block] >> shift;
+            if (shift && block + 1 < m_bits_.size()) {
+                word |= m_bits_[block + 1] << (64 - shift);
+            }
+            return word;
+        }
+
+        // find first 0 bit in BitVector at pos <= `pos`.
+        // TODO: Is it OK for all set BitVector?
+        inline uint64_t predecessor0(uint64_t pos) const {
+            assert(pos < m_size_);
+            uint64_t block = pos / 64;
+            uint64_t shift = 64 - pos % 64 - 1;
+            uint64_t word = ~m_bits_[block];
+            word = (word << shift) >> shift;
+
+            unsigned long ret;
+            while (!util::msb(word, ret)) {
+                assert(block);
+                word = ~m_bits_[--block];
+            }
+            return block * 64 + ret;
+        }
+
+        // find first 0 bit in BitVector at pos >= `pos`.
+        inline uint64_t successor0(uint64_t pos) const {
+            assert(pos < m_size_);
+            uint64_t block = pos / 64;
+            uint64_t shift = pos % 64;
+            uint64_t word = (~m_bits_[block] >> shift) << shift;
+
+            unsigned long ret;
+            while (!util::lsb(word, ret)) {
+                ++block;
+                assert(block < m_bits_.size());
+                word = ~m_bits_[block];
+            }
+            return block * 64 + ret;
+        }
+
+        // find first 1 bit in BitVector at pos <= `pos`.
+        inline uint64_t predecessor1(uint64_t pos) const {
+            assert(pos < m_size_);
+            uint64_t block = pos / 64;
+            uint64_t shift = 64 - pos % 64 - 1;
+            uint64_t word = m_bits_[block];
+            word = (word << shift) >> shift;
+
+            unsigned long ret;
+            while (!util::msb(word, ret)) {
+                assert(block);
+                word = m_bits_[--block];
+            };
+            return block * 64 + ret;
+        }
+
+        // find first 1 bit in BitVector at pos >= `pos`.
+        inline uint64_t successor1(uint64_t pos) const {
+            assert(pos < m_size_);
+            uint64_t block = pos / 64;
+            uint64_t shift = pos % 64;
+            uint64_t word = (m_bits_[block] >> shift) << shift;
+
+            unsigned long ret;
+            while (!util::lsb(word, ret)) {
+                ++block;
+                assert(block < m_bits_.size());
+                word = m_bits_[block];
+            };
+            return block * 64 + ret;
+        }
+
+        const mappable_vector<uint64_t>& data() const {
+            return m_bits_;
+        }
+
+        // ------------ the bitwise iterator of BitVector -------------
+        struct enumerator {
+            enumerator():
+                m_bv_(0),
+                m_pos_(uint64_t(-1)) {}
+
+            enumerator(const BitVector& bv, size_t pos)
+                    : m_bv_(&bv)
+                    , m_pos_(pos)
+                    , m_buf_(0)
+                    , m_avail_(0){
+                // In ot/path_decomposition_trie call prefetch here
+                // TODO: Can we do nothing here?
+            }
+
+            // get next `m_pos_` bit in BitVector
+            inline bool next()
+            {
+                if (!m_avail_) fill_buf();
+                bool b = m_buf_ & 1;
+                m_buf_ >>= 1;
+                m_avail_ -= 1;
+                m_pos_ += 1;
+                return b;
+            }
+
+            // take bits of length `l` at `m_pos_`
+            inline uint64_t take(size_t l)
+            {
+                if (m_avail_ < l) fill_buf();
+                uint64_t val;
+                if (l != 64) {
+                    val = m_buf_ & ((uint64_t(1) << l) - 1);
+                    m_buf_ >>= l;
+                } else {
+                    val = m_buf_;
+                }
+                m_avail_ -= l;
+                m_pos_ += l;
+                return val;
+            }
+
+            // skip next zeros and the first 1.
+            // RETURN: the size of zeros
+            inline uint64_t skip_zeros()
+            {
+                uint64_t zs = 0;
+                // XXX the loop may be optimized by aligning access
+                while (!m_buf_) {
+                    m_pos_ += m_avail_;
+                    zs += m_avail_;
+                    m_avail_ = 0;
+                    fill_buf();
+                }
+
+                uint64_t l = util::lsb(m_buf_);
+                m_buf_ >>= l;
+                m_buf_ >>= 1;
+                m_avail_ -= l + 1;
+                m_pos_ += l + 1;
+                return zs + l;
+            }
+
+            inline uint64_t position() const
+            {
+                return m_pos_;
+            }
+
+        private:
+            // load a word in BitVector at `m_pos_`
+            inline void fill_buf()
+            {
+                m_buf_ = m_bv_->get_word(m_pos_);
+                m_avail_ = 64;
+            }
+
+            const BitVector* m_bv_;
+            size_t m_pos_;         // current bit position
+            uint64_t m_buf_;       // buffer of `m_avail_` length of bits
+            size_t m_avail_;       // available bit length of `m_buf_`
+        };
+
+        // -------------- the iterator of set-bits of BitVector ---------------
+        struct unary_enumerator {
+            unary_enumerator()
+                    : m_data_(0)
+                    , m_pos_(0)
+                    , m_buf_(0)
+            {}
+
+            unary_enumerator(const BitVector& bv, uint64_t pos)
+            {
+                m_data_ = bv.data().data();
+                m_pos_ = pos;
+                m_buf_ = m_data_[pos / 64];
+                // clear low bits
+                m_buf_ &= uint64_t(-1) << (pos % 64);
+            }
+
+            uint64_t position() const
+            {
+                return m_pos_;
+            }
+
+            // Update `m_buf_` and `m_pos_` to next set-bit's position.
+            // RETURN: next set-bit's position.
+            uint64_t next()
+            {
+                unsigned long pos_in_word;
+                uint64_t buf = m_buf_;
+                while (!util::lsb(buf, pos_in_word)) {
+                    m_pos_ += 64;
+                    buf = m_data_[m_pos_ / 64];
+                }
+
+                m_buf_ = buf & (buf - 1); // clear LSB
+                m_pos_ = (m_pos_ & ~uint64_t(63)) + pos_in_word;
+                return m_pos_;
+            }
+
+            // skip to the k-th one after the current position
+            // `k` starts from 0
+            // After `skip`, `m_buf_` points to the k-th 1-bit.
+            void skip(uint64_t k)
+            {
+                uint64_t skipped = 0;
+                uint64_t buf = m_buf_;
+                uint64_t w = 0;
+                while (skipped + (w = util::popcount(buf)) <= k) {
+                    skipped += w;
+                    m_pos_ += 64;
+                    buf = m_data_[m_pos_ / 64];
+                }
+                assert(buf);
+                uint64_t pos_in_word = util::select_in_word(buf, k - skipped);
+                m_buf_ = buf & (uint64_t(-1) << pos_in_word);
+                m_pos_ = (m_pos_ & ~uint64_t(63)) + pos_in_word;
+            }
+
+            // return the position of the k-th one after the current position.
+            uint64_t skip_no_move(uint64_t k)
+            {
+                uint64_t position = m_pos_;
+                uint64_t skipped = 0;
+                uint64_t buf = m_buf_;
+                uint64_t w = 0;
+                while (skipped + (w = util::popcount(buf)) <= k) {
+                    skipped += w;
+                    position += 64;
+                    buf = m_data_[position / 64];
+                }
+                assert(buf);
+                uint64_t pos_in_word = util::select_in_word(buf, k - skipped);
+                position = (position & ~uint64_t(63)) + pos_in_word;
+                return position;
+            }
+
+            // skip to the k-th zero after the current position
+            void skip0(uint64_t k)
+            {
+                uint64_t skipped = 0;
+                uint64_t pos_in_word = m_pos_ % 64;
+                uint64_t buf = ~m_buf_ & (uint64_t(-1) << pos_in_word);
+                uint64_t w = 0;
+                while (skipped + (w = util::popcount(buf)) <= k) {
+                    skipped += w;
+                    m_pos_ += 64;
+                    buf = ~m_data_[m_pos_ / 64];
+                }
+                assert(buf);
+                pos_in_word = util::select_in_word(buf, k - skipped);
+                m_buf_ = ~buf & (uint64_t(-1) << pos_in_word);
+                m_pos_ = (m_pos_ & ~uint64_t(63)) + pos_in_word;
+            }
+
+        private:
+            const uint64_t* m_data_;
+            uint64_t m_pos_;
+            uint64_t m_buf_;
+        };
+
+    protected:
+        size_t m_size_;                     // bit size
+        mappable_vector<uint64_t> m_bits_;
     };
 }
 

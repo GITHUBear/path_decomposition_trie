@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_bit_vector
+
+# Build rule for target.
+test_bit_vector: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_bit_vector
+.PHONY : test_bit_vector
+
+# fast build rule for target.
+test_bit_vector/fast:
+	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/build
+.PHONY : test_bit_vector/fast
+
+#=============================================================================
 # Target rules for targets named path_decomposition_trie
 
 # Build rule for target.
@@ -150,6 +163,36 @@ library.cpp.s:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/library.cpp.s
 .PHONY : library.cpp.s
 
+test_bit_vector.o: test_bit_vector.cpp.o
+
+.PHONY : test_bit_vector.o
+
+# target to build an object file
+test_bit_vector.cpp.o:
+	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o
+.PHONY : test_bit_vector.cpp.o
+
+test_bit_vector.i: test_bit_vector.cpp.i
+
+.PHONY : test_bit_vector.i
+
+# target to preprocess a source file
+test_bit_vector.cpp.i:
+	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.i
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.i
+.PHONY : test_bit_vector.cpp.i
+
+test_bit_vector.s: test_bit_vector.cpp.s
+
+.PHONY : test_bit_vector.s
+
+# target to generate assembly for a file
+test_bit_vector.cpp.s:
+	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.s
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.s
+.PHONY : test_bit_vector.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -158,10 +201,14 @@ help:
 	@echo "... depend"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
+	@echo "... test_bit_vector"
 	@echo "... path_decomposition_trie"
 	@echo "... library.o"
 	@echo "... library.i"
 	@echo "... library.s"
+	@echo "... test_bit_vector.o"
+	@echo "... test_bit_vector.i"
+	@echo "... test_bit_vector.s"
 .PHONY : help
 
 
