@@ -122,6 +122,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h">
+			<Option target="path_decomposition_trie"/>
+		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/bit_util.h">
 			<Option target="test_bit_vector"/>
 			<Option target="path_decomposition_trie"/>
