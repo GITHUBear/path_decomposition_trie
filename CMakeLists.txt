@@ -9,7 +9,9 @@ link_directories("/usr/local/lib")
 
 add_library(path_decomposition_trie
         library.cpp library.h
-        bit_vector.h bit_util.h mappable_vector.h test_bit_vector.cpp rank_select_bit_vector.h balanced_parentheses_vector.h)
+        bit_vector.h bit_util.h mappable_vector.h
+        test_bit_vector.cpp rank_select_bit_vector.h
+        balanced_parentheses_vector.h balanced_parentheses_vector.cpp)
 target_link_libraries(${PROJECT_NAME} gtest)
 
 add_executable(test_bit_vector

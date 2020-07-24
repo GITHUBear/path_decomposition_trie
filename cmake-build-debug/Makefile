@@ -136,6 +136,33 @@ path_decomposition_trie/fast:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/build
 .PHONY : path_decomposition_trie/fast
 
+balanced_parentheses_vector.o: balanced_parentheses_vector.cpp.o
+
+.PHONY : balanced_parentheses_vector.o
+
+# target to build an object file
+balanced_parentheses_vector.cpp.o:
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.o
+.PHONY : balanced_parentheses_vector.cpp.o
+
+balanced_parentheses_vector.i: balanced_parentheses_vector.cpp.i
+
+.PHONY : balanced_parentheses_vector.i
+
+# target to preprocess a source file
+balanced_parentheses_vector.cpp.i:
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.i
+.PHONY : balanced_parentheses_vector.cpp.i
+
+balanced_parentheses_vector.s: balanced_parentheses_vector.cpp.s
+
+.PHONY : balanced_parentheses_vector.s
+
+# target to generate assembly for a file
+balanced_parentheses_vector.cpp.s:
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.s
+.PHONY : balanced_parentheses_vector.cpp.s
+
 library.o: library.cpp.o
 
 .PHONY : library.o
@@ -203,6 +230,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... test_bit_vector"
 	@echo "... path_decomposition_trie"
+	@echo "... balanced_parentheses_vector.o"
+	@echo "... balanced_parentheses_vector.i"
+	@echo "... balanced_parentheses_vector.s"
 	@echo "... library.o"
 	@echo "... library.i"
 	@echo "... library.s"

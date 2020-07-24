@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.cpp
+balanced_parentheses_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
+rank_select_bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h
+
 /Users/dimdew/CLionProjects/path_decomposition_trie/bit_util.h
 cstdint
 -
@@ -21,8 +29,8 @@ mappable_vector.h
 /Users/dimdew/CLionProjects/path_decomposition_trie/library.cpp
 library.h
 /Users/dimdew/CLionProjects/path_decomposition_trie/library.h
-rank_select_bit_vector.h
-/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h
+balanced_parentheses_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
 iostream
 -
 

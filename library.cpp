@@ -1,5 +1,5 @@
 #include "library.h"
-#include "rank_select_bit_vector.h"
+#include "balanced_parentheses_vector.h"
 
 #include <iostream>
 
