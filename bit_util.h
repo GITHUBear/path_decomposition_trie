@@ -92,15 +92,19 @@ namespace succinct {
                 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 7
         };
 
+        inline uint64_t reverse_bytes(uint64_t n) {
+            n = ((n >> 8) & MAGIC_MASK_4) | ((n & MAGIC_MASK_4) << 8);
+            n = ((n >> 16) & MAGIC_MASK_5) | ((n & MAGIC_MASK_5) << 16);
+            n = (n >> 32) | (n << 32);
+            return n;
+        }
+
         inline uint64_t reverse_bits(uint64_t n) {
             // reverse adjacent bits
             n = ((n >> 1) & MAGIC_MASK_1) | ((n & MAGIC_MASK_1) << 1);
             n = ((n >> 2) & MAGIC_MASK_2) | ((n & MAGIC_MASK_2) << 2);
             n = ((n >> 4) & MAGIC_MASK_3) | ((n & MAGIC_MASK_3) << 4);
-            n = ((n >> 8) & MAGIC_MASK_4) | ((n & MAGIC_MASK_4) << 8);
-            n = ((n >> 16) & MAGIC_MASK_5) | ((n & MAGIC_MASK_5) << 16);
-            n = (n >> 32) | (n << 32);
-            return n;
+            return reverse_bytes(n);
         }
 
         inline uint64_t byte_counts(uint64_t x) {

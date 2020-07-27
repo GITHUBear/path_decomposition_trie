@@ -46,6 +46,8 @@ namespace succinct {
     //     | +---+   +---+|  | +---+   +---+|  | +---+   +---+|  | +---+   +---+|
     //     +--------------+  +--------------+  +--------------+  +--------------+
     //
+    // `m_superblock_excess_min_` is used in RMQ algorithm.
+    //
     class BpVector : public RsBitVector {
     public:
         BpVector() : RsBitVector() {}
@@ -54,7 +56,7 @@ namespace succinct {
                  bool with_select_hints = false,
                  bool with_select0_hints = false)
                  : RsBitVector(bools, with_select_hints, with_select0_hints) {
-
+            build_min_tree();
         }
 
         void swap(BpVector& other) {
@@ -63,6 +65,8 @@ namespace succinct {
             m_block_excess_min_.swap(other.m_block_excess_min_);
             m_superblock_excess_min_.swap(other.m_superblock_excess_min_);
         }
+
+        uint64_t find_open(uint64_t pos) const;
 
         typedef int32_t excess_t;
 
@@ -77,6 +81,7 @@ namespace succinct {
         inline excess_t get_block_excess(uint64_t block) const {
             uint64_t word_idx = block * bp_block_size;
             uint64_t block_pos = word_idx * 64;
+            // word_rank(word_idx) - (block_pos - word_rank(word_idx))
             excess_t excess = static_cast<excess_t>(2 * word_rank(word_idx) - block_pos);
             assert(excess >= 0);
             return excess;

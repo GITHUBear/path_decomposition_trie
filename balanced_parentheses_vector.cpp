@@ -5,6 +5,12 @@
 #include "balanced_parentheses_vector.h"
 
 namespace succinct {
+    //
+    // `pos`: bit index
+    uint64_t BpVector::find_open(uint64_t pos) const {
+
+    }
+
     void BpVector::build_min_tree() {
         if (!size()) return;
 
