@@ -11,9 +11,13 @@ add_library(path_decomposition_trie
         library.cpp library.h
         bit_vector.h bit_util.h mappable_vector.h
         test_bit_vector.cpp rank_select_bit_vector.h
-        balanced_parentheses_vector.h balanced_parentheses_vector.cpp)
+        balanced_parentheses_vector.h balanced_parentheses_vector.cpp test_bp_vector.cpp)
 target_link_libraries(${PROJECT_NAME} gtest)
 
 add_executable(test_bit_vector
         bit_vector.h bit_util.h mappable_vector.h test_bit_vector.cpp)
 target_link_libraries(test_bit_vector gtest)
+
+add_executable(test_bp_vector
+        balanced_parentheses_vector.h balanced_parentheses_vector.cpp test_bp_vector.cpp)
+target_link_libraries(test_bp_vector gtest)

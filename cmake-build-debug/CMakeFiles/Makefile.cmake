@@ -52,6 +52,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/test_bp_vector.dir/DependInfo.cmake"
   "CMakeFiles/test_bit_vector.dir/DependInfo.cmake"
   "CMakeFiles/path_decomposition_trie.dir/DependInfo.cmake"
   )

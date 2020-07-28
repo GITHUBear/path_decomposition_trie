@@ -178,6 +178,11 @@ namespace succinct {
             return (uint8_t)ret;
         }
 
+        inline uint64_t leq_bytes(uint64_t x, uint64_t y) {
+            const uint64_t indicator = 0x80ULL * BYTE_UNIT;
+            return (((((y | indicator) - (x & (~indicator))) & (~(x ^ y))) | (x & (~y))) & indicator) >> 7;
+        }
+
         // get position of `k`-th 1-bit in `x`.
         // `k` starts from 0.
         inline uint64_t select_in_word(const uint64_t x, const uint64_t k) {
