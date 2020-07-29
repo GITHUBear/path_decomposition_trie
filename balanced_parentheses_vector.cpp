@@ -127,6 +127,9 @@ namespace succinct {
         return false;
     }
 
+    // `direction`: backward when direction = 0.
+    // `block`: block index
+    // `excess`: the excess in bit index range [0, pos)
     template <int direction>
     inline bool BpVector::search_block_in_superblock(
             uint64_t block, excess_t excess, size_t& found_block) const {
@@ -155,49 +158,63 @@ namespace succinct {
         return false;
     }
 
+    inline bool BpVector::in_node_range(uint64_t node, excess_t excess) const {
+        assert(m_superblock_excess_min_[node] != excess_t(size()));
+        return excess >= m_superblock_excess_min_[node];
+    }
+
     template <int direction>
     inline uint64_t BpVector::search_min_tree(uint64_t block, excess_t excess) const {
-//        size_t found_block = -1U;
-//        if (search_block_in_superblock<direction>(block, excess, found_block)) {
-//            return found_block;
-//        }
-//
-//        size_t cur_superblock = block / superblock_size;
-//        size_t cur_node = m_internal_nodes + cur_superblock;
-//        while (true) {
-//            assert(cur_node);
-//            bool going_back = (cur_node & 1) == direction;
-//            if (!going_back) {
-//                size_t next_node = direction ? (cur_node + 1) : (cur_node - 1);
-//                if (in_node_range(next_node, excess)) {
-//                    cur_node = next_node;
-//                    break;
-//                }
-//            }
-//            cur_node /= 2;
-//        }
-//
-//        assert(cur_node);
-//
-//        while (cur_node < m_internal_nodes) {
-//            uint64_t next_node = cur_node * 2 + (1 - direction);
-//            if (in_node_range(next_node, excess)) {
-//                cur_node = next_node;
-//                continue;
-//            }
-//
-//            next_node = direction ? (next_node + 1) : (next_node - 1);
-//            // if it is not one child, it must be the other
-//            assert(in_node_range(next_node, excess));
-//            cur_node = next_node;
-//        }
-//
-//        size_t next_superblock = cur_node - m_internal_nodes_;
-//        bool ret = search_block_in_superblock<direction>(next_superblock * superblock_size + (1 - direction) * (superblock_size - 1),
-//                                                         excess, found_block);
-//        assert(ret); (void)ret;
-//
-//        return found_block;
+        size_t found_block = -1U;
+        if (search_block_in_superblock<direction>(block, excess, found_block)) {
+            return found_block;
+        }
+
+        // climbing `m_superblock_excess_min_` binary tree for searching a wide node range
+        size_t cur_superblock = block / superblock_size;
+        size_t cur_node = m_internal_nodes_ + cur_superblock;
+        while (true) {
+            assert(cur_node);
+            // left sub-tree or right sub-tree
+            bool going_back = (cur_node & 1) == direction;
+            if (!going_back) {
+                // direction = 0 and cur_node is right sub-node or
+                // direction = 1 and cur_node is left sub-node
+                size_t next_node = direction ? (cur_node + 1) : (cur_node - 1);
+                // For `direction` = 0, left node is checked;
+                // while `direction` = 1, we check right node.
+                if (in_node_range(next_node, excess)) {
+                    cur_node = next_node;
+                    break;
+                }
+            }
+            cur_node /= 2;
+        }
+
+        // `cur_node` represents a superblock index range.
+        // In this range, we can find a superblock contains Open/Close Parentheses we want.
+        assert(cur_node);
+
+        // sliding down `m_superblock_excess_min_` binary tree for searching the superblock.
+        while (cur_node < m_internal_nodes_) {
+            uint64_t next_node = cur_node * 2 + (1 - direction);
+            if (in_node_range(next_node, excess)) {
+                cur_node = next_node;
+                continue;
+            }
+
+            next_node = direction ? (next_node + 1) : (next_node - 1);
+            // if it is not one child, it must be the other
+            assert(in_node_range(next_node, excess));
+            cur_node = next_node;
+        }
+
+        size_t next_superblock = cur_node - m_internal_nodes_;
+        bool ret = search_block_in_superblock<direction>(next_superblock * superblock_size + (1 - direction) * (superblock_size - 1),
+                                                         excess, found_block);
+        assert(ret); (void)ret;
+
+        return found_block;
     }
 
     //

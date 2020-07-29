@@ -105,6 +105,8 @@ namespace succinct {
             return excess;
         }
 
+        inline bool in_node_range(uint64_t node, excess_t excess) const;
+
         template <int direction>
         inline bool search_block_in_superblock(
                 uint64_t block, excess_t excess, size_t& found_block) const;
