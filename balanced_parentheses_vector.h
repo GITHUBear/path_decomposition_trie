@@ -73,10 +73,19 @@ namespace succinct {
 
         uint64_t find_open(uint64_t pos) const;
 
+        uint64_t find_close(uint64_t pos) const;
+
         typedef int32_t excess_t;
 
         excess_t excess(uint64_t pos) const {
             return static_cast<excess_t>(2 * rank(pos) - pos);
+        }
+
+        uint64_t excess_rmq(uint64_t a, uint64_t b, excess_t& min_exc) const;
+
+        inline uint64_t excess_rmq(uint64_t a, uint64_t b) const {
+            excess_t foo;
+            return excess_rmq(a, b, foo);
         }
 
     protected:
@@ -93,6 +102,22 @@ namespace succinct {
         // `max_sub_blocks`: sub-index in block
         bool find_open_in_block(uint64_t pos, excess_t excess,
                                 uint64_t max_sub_blocks, uint64_t& ret) const;
+
+        bool find_close_in_block(uint64_t pos, excess_t excess,
+                                 uint64_t max_sub_blocks, uint64_t& ret) const;
+
+        void excess_rmq_in_block(uint64_t start, uint64_t end,
+                                 BpVector::excess_t& exc,
+                                 BpVector::excess_t& min_exc,
+                                 uint64_t& min_exc_idx) const;
+
+        void excess_rmq_in_superblock(uint64_t block_start, uint64_t block_end,
+                                      BpVector::excess_t& block_min_exc,
+                                      uint64_t& block_min_idx) const;
+
+        void find_min_superblock(uint64_t superblock_start, uint64_t superblock_end,
+                                 BpVector::excess_t& superblock_min_exc,
+                                 uint64_t& superblock_min_idx) const;
 
         // accumulate the excess in the block index range [0, block)
         // `block`: block index
@@ -136,6 +161,13 @@ namespace succinct {
     bool find_open_in_word(
             uint64_t word, uint64_t byte_counts,
             BpVector::excess_t cur_exc, uint64_t& ret);
+
+    bool find_close_in_word(
+            uint64_t word, uint64_t byte_counts,
+            BpVector::excess_t cur_exc, uint64_t& ret);
+
+    void excess_rmq_in_word(uint64_t word, BpVector::excess_t& exc, uint64_t word_start,
+                       BpVector::excess_t& min_exc, uint64_t& min_exc_idx);
 }
 
 #endif //PATH_DECOMPOSITION_TRIE_BALANCED_PARENTHESES_VECTOR_H
