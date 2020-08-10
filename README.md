@@ -258,5 +258,76 @@ excess 小，说明与之对应的 "(" 落在这个范围 (根据二叉树的 DF
 
 ### Path Decomposed Trie
 
-这部分就是核心的创建 Path Decomposed Trie 的算法了
+这部分就是核心的创建 Path Decomposed Trie 的算法了，也是我觉得看起来最头疼的地方，
+不过同时也是存在改进优化的地方
 
+创建 Path Decomposed Trie 主要分为两个步骤，第一步就是读取多个 byte 
+序列创建出一个 Compacted Trie，然后第二步基于这个 Compacted Trie 进行
+路径划分维护论文中提到的 label、balanced parentheses 序列以及 branch 序列
+
+#### 创建 Compacted Trie
+
+如插入 three、trial、triangle 这样的 bytes
+
+```plain
+
+1. insert "three"
+     +-------+
+     | three |
+     +-------+
+2. insert "trial"
+             split node "three"
+             +-------+
+             |   t   |
+             +-------+
+            h/       \r
+            /         \
+         ree          +-------+
+                      |   ial |
+                      +-------+
+3. insert "triangle"
+             split node "ial"
+             +-------+
+             |   t   |
+             +-------+
+            h/       \r
+            /         \
+         ree          +-------+
+                      |   ia  |
+                      +-------+
+                     l/       \n
+                     /         \
+                    $           +------+
+                                |  gle |
+                                +------+
+```
+
+上图中，框选出来的节点表明此时存在于栈结构中，本算法运用的重要性质是：
+
+- 每次发生 split 的节点之后的在栈中的节点都是确定完成了 DFS 的节点
+
+#### 修改
+
+相比于原有的实现，作出了如下修改：
+
+- 原有实现中传入一组bytes然后一次性创建了 compacted trie，
+但是为了能够便于将此库应用到 `rocksdb` 中，所以修改接口为 append 和 finish 的操作，
+实现了 CompactedTrieBuilder
+
+### 创建 Path Decomposed Trie
+
+#### 修改
+
+原有实现中需要 DFS 一次 Compacted Trie，修改中引入 DefaultTreeBuilder 在创建
+Compacted Trie 的同时一并创建 Path Decomposed Trie 来减小预处理的开销
+
+这一点修改依赖于创建 Compacted Trie 的过程中节点弹出 stack 的顺序和 DFS 顺序一致，
+所以可以同时处理
+
+其次，Path Decomposed Trie 的实现中较为复杂的就是 label、括号序列和 branch 序列的维护，
+代码中有较详细的注释，这里不再赘述
+
+## TODO
+
+- 对 label 序列的编码算法尚未实现，目前是直接保存了 bytes；
+- 各个模块的单元测试目前只测了一小部分，以及读写性能的测试尚未加入；
