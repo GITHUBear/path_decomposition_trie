@@ -21,6 +21,8 @@ namespace succinct {
 
         BitVectorBuilder(const BitVectorBuilder &builder) = delete;
 
+        BitVectorBuilder() : m_size_(0), m_cur_word_(nullptr) {};
+
         // new a BitVectorBuilder containing a vector of `size` bits
         // the elements of the vector are all 0
         // if `set` is set, the elements of the vector are all 0 in bits

@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = /Users/dimdew/CLionProjects/path_decomposition_trie/cmake-bui
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_bit_vector
+
+# Build rule for target.
+test_bit_vector: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_bit_vector
+.PHONY : test_bit_vector
+
+# fast build rule for target.
+test_bit_vector/fast:
+	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/build
+.PHONY : test_bit_vector/fast
+
+#=============================================================================
 # Target rules for targets named test_bp_vector
 
 # Build rule for target.
@@ -124,17 +137,17 @@ test_bp_vector/fast:
 .PHONY : test_bp_vector/fast
 
 #=============================================================================
-# Target rules for targets named test_bit_vector
+# Target rules for targets named test_path_decomposed_trie
 
 # Build rule for target.
-test_bit_vector: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 test_bit_vector
-.PHONY : test_bit_vector
+test_path_decomposed_trie: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_path_decomposed_trie
+.PHONY : test_path_decomposed_trie
 
 # fast build rule for target.
-test_bit_vector/fast:
-	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/build
-.PHONY : test_bit_vector/fast
+test_path_decomposed_trie/fast:
+	$(MAKE) -f CMakeFiles/test_path_decomposed_trie.dir/build.make CMakeFiles/test_path_decomposed_trie.dir/build
+.PHONY : test_path_decomposed_trie/fast
 
 #=============================================================================
 # Target rules for targets named path_decomposition_trie
@@ -266,16 +279,47 @@ test_bp_vector.cpp.s:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.s
 .PHONY : test_bp_vector.cpp.s
 
+test_path_decomposed_trie.o: test_path_decomposed_trie.cpp.o
+
+.PHONY : test_path_decomposed_trie.o
+
+# target to build an object file
+test_path_decomposed_trie.cpp.o:
+	$(MAKE) -f CMakeFiles/test_path_decomposed_trie.dir/build.make CMakeFiles/test_path_decomposed_trie.dir/test_path_decomposed_trie.cpp.o
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.o
+.PHONY : test_path_decomposed_trie.cpp.o
+
+test_path_decomposed_trie.i: test_path_decomposed_trie.cpp.i
+
+.PHONY : test_path_decomposed_trie.i
+
+# target to preprocess a source file
+test_path_decomposed_trie.cpp.i:
+	$(MAKE) -f CMakeFiles/test_path_decomposed_trie.dir/build.make CMakeFiles/test_path_decomposed_trie.dir/test_path_decomposed_trie.cpp.i
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.i
+.PHONY : test_path_decomposed_trie.cpp.i
+
+test_path_decomposed_trie.s: test_path_decomposed_trie.cpp.s
+
+.PHONY : test_path_decomposed_trie.s
+
+# target to generate assembly for a file
+test_path_decomposed_trie.cpp.s:
+	$(MAKE) -f CMakeFiles/test_path_decomposed_trie.dir/build.make CMakeFiles/test_path_decomposed_trie.dir/test_path_decomposed_trie.cpp.s
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.s
+.PHONY : test_path_decomposed_trie.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
+	@echo "... test_bit_vector"
 	@echo "... edit_cache"
 	@echo "... test_bp_vector"
-	@echo "... test_bit_vector"
+	@echo "... rebuild_cache"
+	@echo "... test_path_decomposed_trie"
 	@echo "... path_decomposition_trie"
 	@echo "... balanced_parentheses_vector.o"
 	@echo "... balanced_parentheses_vector.i"
@@ -289,6 +333,9 @@ help:
 	@echo "... test_bp_vector.o"
 	@echo "... test_bp_vector.i"
 	@echo "... test_bp_vector.s"
+	@echo "... test_path_decomposed_trie.o"
+	@echo "... test_path_decomposed_trie.i"
+	@echo "... test_path_decomposed_trie.s"
 .PHONY : help
 
 

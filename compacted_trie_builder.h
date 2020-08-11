@@ -8,13 +8,19 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <memory>
 
 namespace succinct {
     namespace trie {
         template <typename TreeBuilder>
         struct compacted_trie_builder {
         public:
-            compacted_trie_builder(): is_finish_(false) {
+            compacted_trie_builder(const compacted_trie_builder&) = delete;
+
+            compacted_trie_builder &operator=(const compacted_trie_builder&) = delete;
+
+            compacted_trie_builder(TreeBuilder& builder_)
+                : is_finish_(false), builder(builder_) {
                 assert(node_stack.empty() && last_string.empty());
             }
 
@@ -58,20 +64,51 @@ namespace succinct {
                         uint8_t branch_byte = last_string[child.path_len - 1];
                         node_stack[idx - 1].children.push_back(std::make_pair(branch_byte, subtrie));
                     }
+                    node_stack.resize(split_node_idx + 1);
 
+                    // if the current string splits the skip, split the current node
+                    if (mismatch_idx < split_node.path_len + split_node.skip) {
+                        typename TreeBuilder::representation_type subtrie =
+                                builder.node(split_node.children, &last_string[0],
+                                        mismatch_idx + 1,
+                                        split_node.path_len + split_node.skip - mismatch_idx - 1);
+                        uint8_t branching_char = last_string[mismatch_idx];
+                        split_node.children.clear();
+                        split_node.children.push_back(std::make_pair(branching_char, subtrie));
+                        split_node.skip = mismatch_idx - split_node.path_len;
+                    }
+
+                    assert(split_node.path_len + split_node.skip == mismatch_idx);
+                    // open a new leaf with the current suffix
+                    node_stack.push_back(node(mismatch_idx + 1, bytes.size() - mismatch_idx - 1));
+
+                    // copy the current string (iter could be invalid in next iteration)
+                    last_string.assign(bytes.begin(), bytes.end());
                 }
             }
 
             void finish() {
                 assert(!is_finish_);
                 assert(!node_stack.empty());
+
+                // close the remaining path
+                for (size_t node_idx = node_stack.size() - 1; node_idx > 0; --node_idx) {
+                    node& child = node_stack[node_idx];
+                    typename TreeBuilder::representation_type subtrie =
+                            builder.node(child.children, &last_string[0], child.path_len, child.skip);
+                    uint8_t branching_char = last_string[child.path_len - 1];
+                    node_stack[node_idx - 1].children.push_back(std::make_pair(branching_char, subtrie));
+                }
+
+                typename TreeBuilder::representation_type root =
+                        builder.node(node_stack[0].children, &last_string[0],
+                                      node_stack[0].path_len, node_stack[0].skip);
+                builder.root(root);
+                node_stack.clear();
+
+                is_finish_ = true;
             }
 
-            void build(TreeBuilder& builder, const std::vector<std::string>& strings) {
-                if (strings.empty()) return;
-
-
-            }
         private:
             struct node {
                 node()
