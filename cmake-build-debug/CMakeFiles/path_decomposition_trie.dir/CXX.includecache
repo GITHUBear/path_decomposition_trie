@@ -6,6 +6,14 @@
 
 #IncludeRegexTransform: 
 
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.cpp
+balanced_parentheses_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
+rank_select_bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h
+
 /Users/dimdew/CLionProjects/path_decomposition_trie/bit_util.h
 cstdint
 -
@@ -18,37 +26,29 @@ bit_util.h
 mappable_vector.h
 /Users/dimdew/CLionProjects/path_decomposition_trie/mappable_vector.h
 
-/Users/dimdew/CLionProjects/path_decomposition_trie/compacted_trie_builder.h
-vector
--
-string
--
-algorithm
--
-memory
+/Users/dimdew/CLionProjects/path_decomposition_trie/library.cpp
+library.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/library.h
+balanced_parentheses_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
+iostream
 -
 
-/Users/dimdew/CLionProjects/path_decomposition_trie/default_tree_builder.h
-vector
--
-memory
--
-bit_vector.h
-/Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/library.h
 
 /Users/dimdew/CLionProjects/path_decomposition_trie/mappable_vector.h
 functional
 -
 
-/Users/dimdew/CLionProjects/path_decomposition_trie/test_path_decomposed_trie.cpp
+/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h
+bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h
+
+/Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector.cpp
 gtest/gtest.h
 -
-string
--
-compacted_trie_builder.h
-/Users/dimdew/CLionProjects/path_decomposition_trie/compacted_trie_builder.h
-default_tree_builder.h
-/Users/dimdew/CLionProjects/path_decomposition_trie/default_tree_builder.h
+balanced_parentheses_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/balanced_parentheses_vector.h
 
 /usr/local/include/gtest/gtest-death-test.h
 gtest/internal/gtest-death-test-internal.h

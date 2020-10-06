@@ -49,6 +49,13 @@ namespace succinct {
             build_indices(with_select_hints, with_select0_hints);
         }
 
+        RsBitVector(BitVectorBuilder* builder,
+                    bool with_select_hints = false,
+                    bool with_select0_hints = false)
+                    : BitVector(builder) {
+            build_indices(with_select_hints, with_select0_hints);
+        }
+
         void swap(RsBitVector& other) {
             BitVector::swap(other);
             m_block_rank_pairs_.swap(other.m_block_rank_pairs_);

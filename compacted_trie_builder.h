@@ -109,6 +109,14 @@ namespace succinct {
                 is_finish_ = true;
             }
 
+            bool is_finish() const {
+                return is_finish_;
+            }
+
+            typename TreeBuilder::representation_type get_root() {
+                return builder.get_root();
+            }
+
         private:
             struct node {
                 node()

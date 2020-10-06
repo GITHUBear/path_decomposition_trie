@@ -243,6 +243,9 @@
 			<Option target="test_bit_vector"/>
 			<Option target="path_decomposition_trie"/>
 		</Unit>
+		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/path_decomposed_trie.h">
+			<Option target="path_decomposition_trie"/>
+		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h">
 			<Option target="path_decomposition_trie"/>
 		</Unit>

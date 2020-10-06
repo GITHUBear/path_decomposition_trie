@@ -72,7 +72,7 @@ TEST(TRIE_BUILD, PAPER_EXAMPLE_LEX) {
     append_to_trie(trieBuilder, "triply");
     trieBuilder.finish();
 
-    succinct::DefaultTreeBuilder<true>::representation_type root = pdt_builder.get_root();
+    succinct::DefaultTreeBuilder<true>::representation_type root = trieBuilder.get_root();
     assert(get_label<succinct::DefaultTreeBuilder<true>>(root) == "t0hreei1a0lg0lelar$l0e$");
     assert(get_bp_str<succinct::DefaultTreeBuilder<true>>(root) == "(()((()()))())");
     assert(get_branch_str<succinct::DefaultTreeBuilder<true>>(root) == "rpenuy");
@@ -92,7 +92,7 @@ TEST(TRIE_BUILD, PAPER_EXAMPLE_CENTROID) {
     append_to_trie(trieBuilder, "triply");
     trieBuilder.finish();
 
-    succinct::DefaultTreeBuilder<>::representation_type root = pdt_builder.get_root();
+    succinct::DefaultTreeBuilder<>::representation_type root = trieBuilder.get_root();
     assert(get_label<succinct::DefaultTreeBuilder<>>(root) == "t0ri1a0ng0lelar$$l0e$ree");
     assert(get_bp_str<succinct::DefaultTreeBuilder<>>(root) == "(((((())))()))");
     assert(get_branch_str<succinct::DefaultTreeBuilder<>>(root) == "hpeluy");

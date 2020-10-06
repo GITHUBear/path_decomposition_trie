@@ -13,7 +13,7 @@ add_library(path_decomposition_trie
         test_bit_vector.cpp rank_select_bit_vector.h
         balanced_parentheses_vector.h balanced_parentheses_vector.cpp
         test_bp_vector.cpp compacted_trie_builder.h
-        bit_strings.h default_tree_builder.h test_path_decomposed_trie.cpp)
+        bit_strings.h default_tree_builder.h test_path_decomposed_trie.cpp path_decomposed_trie.h)
 target_link_libraries(${PROJECT_NAME} gtest)
 
 add_executable(test_bit_vector
