@@ -124,6 +124,19 @@ test_bit_vector/fast:
 .PHONY : test_bit_vector/fast
 
 #=============================================================================
+# Target rules for targets named test_varint_encode
+
+# Build rule for target.
+test_varint_encode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_varint_encode
+.PHONY : test_varint_encode
+
+# fast build rule for target.
+test_varint_encode/fast:
+	$(MAKE) -f CMakeFiles/test_varint_encode.dir/build.make CMakeFiles/test_varint_encode.dir/build
+.PHONY : test_varint_encode/fast
+
+#=============================================================================
 # Target rules for targets named test_bp_vector
 
 # Build rule for target.
@@ -309,14 +322,45 @@ test_path_decomposed_trie.cpp.s:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.s
 .PHONY : test_path_decomposed_trie.cpp.s
 
+test_varint_encode.o: test_varint_encode.cpp.o
+
+.PHONY : test_varint_encode.o
+
+# target to build an object file
+test_varint_encode.cpp.o:
+	$(MAKE) -f CMakeFiles/test_varint_encode.dir/build.make CMakeFiles/test_varint_encode.dir/test_varint_encode.cpp.o
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_varint_encode.cpp.o
+.PHONY : test_varint_encode.cpp.o
+
+test_varint_encode.i: test_varint_encode.cpp.i
+
+.PHONY : test_varint_encode.i
+
+# target to preprocess a source file
+test_varint_encode.cpp.i:
+	$(MAKE) -f CMakeFiles/test_varint_encode.dir/build.make CMakeFiles/test_varint_encode.dir/test_varint_encode.cpp.i
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_varint_encode.cpp.i
+.PHONY : test_varint_encode.cpp.i
+
+test_varint_encode.s: test_varint_encode.cpp.s
+
+.PHONY : test_varint_encode.s
+
+# target to generate assembly for a file
+test_varint_encode.cpp.s:
+	$(MAKE) -f CMakeFiles/test_varint_encode.dir/build.make CMakeFiles/test_varint_encode.dir/test_varint_encode.cpp.s
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_varint_encode.cpp.s
+.PHONY : test_varint_encode.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... test_bit_vector"
 	@echo "... edit_cache"
+	@echo "... test_bit_vector"
+	@echo "... test_varint_encode"
 	@echo "... test_bp_vector"
 	@echo "... rebuild_cache"
 	@echo "... test_path_decomposed_trie"
@@ -336,6 +380,9 @@ help:
 	@echo "... test_path_decomposed_trie.o"
 	@echo "... test_path_decomposed_trie.i"
 	@echo "... test_path_decomposed_trie.s"
+	@echo "... test_varint_encode.o"
+	@echo "... test_varint_encode.i"
+	@echo "... test_varint_encode.s"
 .PHONY : help
 
 

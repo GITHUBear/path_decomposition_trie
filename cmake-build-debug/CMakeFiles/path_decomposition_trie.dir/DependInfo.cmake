@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/Users/dimdew/CLionProjects/path_decomposition_trie/test_bit_vector.cpp" "/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o"
   "/Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector.cpp" "/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.o"
   "/Users/dimdew/CLionProjects/path_decomposition_trie/test_path_decomposed_trie.cpp" "/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.o"
+  "/Users/dimdew/CLionProjects/path_decomposition_trie/test_varint_encode.cpp" "/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles/path_decomposition_trie.dir/test_varint_encode.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "AppleClang")
 
