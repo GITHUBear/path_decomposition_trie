@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_pdt_search
+
+# Build rule for target.
+test_pdt_search: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_pdt_search
+.PHONY : test_pdt_search
+
+# fast build rule for target.
+test_pdt_search/fast:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/build
+.PHONY : test_pdt_search/fast
+
+#=============================================================================
 # Target rules for targets named test_bit_vector
 
 # Build rule for target.
@@ -181,6 +194,7 @@ balanced_parentheses_vector.o: balanced_parentheses_vector.cpp.o
 
 # target to build an object file
 balanced_parentheses_vector.cpp.o:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/balanced_parentheses_vector.cpp.o
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/balanced_parentheses_vector.cpp.o
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.o
 .PHONY : balanced_parentheses_vector.cpp.o
@@ -191,6 +205,7 @@ balanced_parentheses_vector.i: balanced_parentheses_vector.cpp.i
 
 # target to preprocess a source file
 balanced_parentheses_vector.cpp.i:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/balanced_parentheses_vector.cpp.i
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/balanced_parentheses_vector.cpp.i
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.i
 .PHONY : balanced_parentheses_vector.cpp.i
@@ -201,6 +216,7 @@ balanced_parentheses_vector.s: balanced_parentheses_vector.cpp.s
 
 # target to generate assembly for a file
 balanced_parentheses_vector.cpp.s:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/balanced_parentheses_vector.cpp.s
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/balanced_parentheses_vector.cpp.s
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.s
 .PHONY : balanced_parentheses_vector.cpp.s
@@ -322,6 +338,36 @@ test_path_decomposed_trie.cpp.s:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.s
 .PHONY : test_path_decomposed_trie.cpp.s
 
+test_pdt_search.o: test_pdt_search.cpp.o
+
+.PHONY : test_pdt_search.o
+
+# target to build an object file
+test_pdt_search.cpp.o:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/test_pdt_search.cpp.o
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o
+.PHONY : test_pdt_search.cpp.o
+
+test_pdt_search.i: test_pdt_search.cpp.i
+
+.PHONY : test_pdt_search.i
+
+# target to preprocess a source file
+test_pdt_search.cpp.i:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/test_pdt_search.cpp.i
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.i
+.PHONY : test_pdt_search.cpp.i
+
+test_pdt_search.s: test_pdt_search.cpp.s
+
+.PHONY : test_pdt_search.s
+
+# target to generate assembly for a file
+test_pdt_search.cpp.s:
+	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/test_pdt_search.cpp.s
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.s
+.PHONY : test_pdt_search.cpp.s
+
 test_varint_encode.o: test_varint_encode.cpp.o
 
 .PHONY : test_varint_encode.o
@@ -358,6 +404,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_pdt_search"
 	@echo "... edit_cache"
 	@echo "... test_bit_vector"
 	@echo "... test_varint_encode"
@@ -380,6 +427,9 @@ help:
 	@echo "... test_path_decomposed_trie.o"
 	@echo "... test_path_decomposed_trie.i"
 	@echo "... test_path_decomposed_trie.s"
+	@echo "... test_pdt_search.o"
+	@echo "... test_pdt_search.i"
+	@echo "... test_pdt_search.s"
 	@echo "... test_varint_encode.o"
 	@echo "... test_varint_encode.i"
 	@echo "... test_varint_encode.s"

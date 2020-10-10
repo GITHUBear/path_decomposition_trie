@@ -4,6 +4,7 @@
 CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: ../bit_util.h
 CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: ../bit_vector.h
 CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: ../mappable_vector.h
+CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: ../rank_select_bit_vector.h
 CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: ../test_bit_vector.cpp
 CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: /usr/local/include/gtest/gtest-death-test.h
 CMakeFiles/test_bit_vector.dir/test_bit_vector.cpp.o: /usr/local/include/gtest/gtest-message.h

@@ -15,9 +15,10 @@ namespace succinct {
     public:
         // node label is encoded by uint16_t:
         //
-        //        special_char_flag (uint8_t: 0/1) + char/branching number (uint8_t)
+        //        special_char_flag (uint8_t: 0/1/2) + char/branching number (uint8_t)
         //
         static const size_t SPECIAL_CHAR_FLAG = 256;
+        static const size_t DELIMITER_FLAG = 512;
 
         struct subtree {
             // infos for decomposition path of the subtree
@@ -121,6 +122,10 @@ namespace succinct {
             }
 
             // append in reverse order
+            if (!children.size()) {
+                // Leaf -- We add a special delimiter.
+                ret->m_decomposition_path_label.push_back(uint16_t(DELIMITER_FLAG));
+            }
             for (size_t i = offset + skip - 1; i != offset - 1; --i) {
                 ret->m_decomposition_path_label.push_back(buf[i]);
             }

@@ -14,9 +14,19 @@ namespace succinct {
         // false - CENTROID, true - LEX
         template<bool Lexicographic = false>
         struct DefaultPathDecomposedTrie {
+
+            struct LabelEnumerator {
+
+
+                friend struct DefaultPathDecomposedTrie;
+
+            };
+
             std::vector<uint16_t> m_labels;      // `L` in paper
             std::vector<uint8_t> m_branches;     // `B` in paper
             BpVector m_bp;                       // `BP` in paper
+            // TODO: Use elias-fano encoding later.
+            std::vector<size_t> word_positions;
 
             DefaultPathDecomposedTrie(compacted_trie_builder
                                       <DefaultTreeBuilder<Lexicographic>> &trieBuilder) {
@@ -26,7 +36,20 @@ namespace succinct {
                         root = trieBuilder.get_root();
                 root->m_labels.swap(m_labels);
                 root->m_branches.swap(m_branches);
-                m_bp = BpVector(&root->m_bp, false, true);
+                // [double free error] m_bp = BpVector(&root->m_bp, false, true);(fxxk c++!!!!)
+                auto tmp = BpVector(&root->m_bp, false, true);
+                m_bp.swap(tmp);
+
+                assert(m_labels.back() == DefaultTreeBuilder<Lexicographic>::DELIMITER_FLAG);
+
+                // This method to calculate delimiter position in m_labels is naive.
+                // TODO: optimal needed
+                word_positions.push_back(0);
+                for (int i = 0; i < m_labels.size() - 1; i++) {
+                    if (m_labels[i] == DefaultTreeBuilder<Lexicographic>::DELIMITER_FLAG) {
+                        word_positions.push_back(i + 1);
+                    }
+                }
             }
 
             const std::vector<uint16_t> &get_labels() const {
@@ -38,7 +61,7 @@ namespace succinct {
             }
 
             // TODO: return a const reference OK?
-            const BpVector &get_bp() const {
+            const BpVector& get_bp() const {
                 return m_bp;
             }
 
@@ -46,18 +69,16 @@ namespace succinct {
                 return m_labels.size() + m_branches.size() + m_bp.size();
             }
 
+
+
             // In rocksdb, we will not use string any more, maybe InternalKey...
             // get the index of `val` in the string set, if not exists return -1.
             size_t index(const std::string &val) const {
                 // TODO
                 size_t len = val.size();
+                size_t cur_node_idx = 0;
 
-                size_t cur_pos = 0;                  // pos for m_label
-                size_t cur_node_pos = 1;
-
-                size_t first_child_rank = 0;
-
-                for (auto byte : val) {
+                while (true) {
 
                 }
                 return 0;

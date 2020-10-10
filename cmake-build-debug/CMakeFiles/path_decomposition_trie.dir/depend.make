@@ -19,6 +19,7 @@ CMakeFiles/path_decomposition_trie.dir/library.cpp.o: ../rank_select_bit_vector.
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../bit_util.h
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../bit_vector.h
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../mappable_vector.h
+CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../rank_select_bit_vector.h
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: ../test_bit_vector.cpp
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: /usr/local/include/gtest/gtest-death-test.h
 CMakeFiles/path_decomposition_trie.dir/test_bit_vector.cpp.o: /usr/local/include/gtest/gtest-message.h
@@ -100,6 +101,38 @@ CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.o: /usr/loc
 CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.o: /usr/local/include/gtest/internal/gtest-string.h
 CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.o: /usr/local/include/gtest/internal/gtest-tuple.h
 CMakeFiles/path_decomposition_trie.dir/test_path_decomposed_trie.cpp.o: /usr/local/include/gtest/internal/gtest-type-util.h
+
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../balanced_parentheses_vector.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../bit_util.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../bit_vector.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../compacted_trie_builder.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../default_tree_builder.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../mappable_vector.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../path_decomposed_trie.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../rank_select_bit_vector.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: ../test_pdt_search.cpp
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest-death-test.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest-message.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest-param-test.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest-printers.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest-test-part.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest-typed-test.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest_pred_impl.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/gtest_prod.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/custom/gtest-port.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/custom/gtest-printers.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-death-test-internal.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-filepath.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-internal.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-linked_ptr.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-param-util-generated.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-param-util.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-port-arch.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-port.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-string.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-tuple.h
+CMakeFiles/path_decomposition_trie.dir/test_pdt_search.cpp.o: /usr/local/include/gtest/internal/gtest-type-util.h
 
 CMakeFiles/path_decomposition_trie.dir/test_varint_encode.cpp.o: ../bit_util.h
 CMakeFiles/path_decomposition_trie.dir/test_varint_encode.cpp.o: ../test_varint_encode.cpp

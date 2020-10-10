@@ -22,6 +22,10 @@ mappable_vector.h
 functional
 -
 
+/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h
+bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h
+
 /Users/dimdew/CLionProjects/path_decomposition_trie/test_bit_vector.cpp
 gtest/gtest.h
 -
@@ -29,6 +33,8 @@ iostream
 -
 bit_vector.h
 /Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h
+rank_select_bit_vector.h
+/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h
 
 /usr/local/include/gtest/gtest-death-test.h
 gtest/internal/gtest-death-test-internal.h

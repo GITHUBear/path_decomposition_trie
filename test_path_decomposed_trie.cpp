@@ -23,8 +23,10 @@ template <typename TrieBuilder>
 std::string get_label(typename TrieBuilder::representation_type& root) {
     std::string label;
     for (auto byte : root->m_labels) {
-        if (byte >> 8) {
+        if (byte >> 8 == 1) {
             label += std::to_string(uint8_t(byte));
+        } else if (byte >> 8 == 2) {
+            label += '#';
         } else {
             label += (char(byte) ? char(byte) : '$');
         }
@@ -73,7 +75,7 @@ TEST(TRIE_BUILD, PAPER_EXAMPLE_LEX) {
     trieBuilder.finish();
 
     succinct::DefaultTreeBuilder<true>::representation_type root = trieBuilder.get_root();
-    assert(get_label<succinct::DefaultTreeBuilder<true>>(root) == "t0hreei1a0lg0lelar$l0e$");
+    assert(get_label<succinct::DefaultTreeBuilder<true>>(root) == "t0hree#i1a0l#g0le#lar##l0e##");
     assert(get_bp_str<succinct::DefaultTreeBuilder<true>>(root) == "(()((()()))())");
     assert(get_branch_str<succinct::DefaultTreeBuilder<true>>(root) == "rpenuy");
 }
@@ -93,7 +95,7 @@ TEST(TRIE_BUILD, PAPER_EXAMPLE_CENTROID) {
     trieBuilder.finish();
 
     succinct::DefaultTreeBuilder<>::representation_type root = trieBuilder.get_root();
-    assert(get_label<succinct::DefaultTreeBuilder<>>(root) == "t0ri1a0ng0lelar$$l0e$ree");
+    assert(get_label<succinct::DefaultTreeBuilder<>>(root) == "t0ri1a0ng0le#lar###l0e##ree#");
     assert(get_bp_str<succinct::DefaultTreeBuilder<>>(root) == "(((((())))()))");
     assert(get_branch_str<succinct::DefaultTreeBuilder<>>(root) == "hpeluy");
 }
