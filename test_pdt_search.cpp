@@ -68,31 +68,166 @@ TEST(PDT_TEST, CREATE_1) {
     append_to_trie(trieBuilder, "triply");
     trieBuilder.finish();
 
-//    auto root = trieBuilder.get_root();
-//    succinct::BpVector bpVec(&root->m_bp, false, true);
-//    size_t bp_idx = 0;
-//    std::string bp_str;
-//    while (bp_idx < bpVec.size()) {
-//        if (bpVec[bp_idx]) {
-//            bp_str += "(";
-//        } else {
-//            bp_str += ")";
-//        }
-//        bp_idx++;
-//    }
-//    printf("%s\n", bp_str.c_str());
-
     succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
     EXPECT_EQ(get_label(pdt.get_labels()), "t0hree#i1a0l#g0le#la1r#e#s##l0e##");
     EXPECT_EQ(get_branch_str(pdt.get_branches()), "rpenuuty");
     EXPECT_EQ(get_bp_str(pdt.get_bp()), "(()((()()(())))())");
-//    EXPECT_EQ(get_bp_str(pdt.get_bp()), "");
     for (auto& pos : pdt.word_positions) {
         printf("%lu ", pos);
     }
     printf("\n");
+}
 
+TEST(PDT_TEST, SEARCH_UTIL_1) {
+    succinct::DefaultTreeBuilder<true> pdt_builder;
+    succinct::trie::compacted_trie_builder
+            <succinct::DefaultTreeBuilder<true>>
+            trieBuilder(pdt_builder);
+    append_to_trie(trieBuilder, "three");
+    append_to_trie(trieBuilder, "trial");
+    append_to_trie(trieBuilder, "triangle");
+    append_to_trie(trieBuilder, "triangular");
+    append_to_trie(trieBuilder, "triangulate");
+    append_to_trie(trieBuilder, "triangulaus");
+    append_to_trie(trieBuilder, "trie");
+    append_to_trie(trieBuilder, "triple");
+    append_to_trie(trieBuilder, "triply");
+    trieBuilder.finish();
 
+    succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+
+    size_t end, num;
+    pdt.get_branch_idx_by_node_idx(0, end, num);
+    EXPECT_EQ(end, 0);
+    EXPECT_EQ(num, 1);
+    pdt.get_branch_idx_by_node_idx(1, end, num);
+    EXPECT_EQ(end, 3);
+    EXPECT_EQ(num, 3);
+    pdt.get_branch_idx_by_node_idx(2, end, num);
+    EXPECT_EQ(end, 4);
+    EXPECT_EQ(num, 1);
+    pdt.get_branch_idx_by_node_idx(3, end, num);
+    EXPECT_EQ(end, 6);
+    EXPECT_EQ(num, 2);
+    pdt.get_branch_idx_by_node_idx(4, end, num);
+    EXPECT_EQ(end, 6);
+    EXPECT_EQ(num, 0);
+    pdt.get_branch_idx_by_node_idx(5, end, num);
+    EXPECT_EQ(end, 6);
+    EXPECT_EQ(num, 0);
+    pdt.get_branch_idx_by_node_idx(6, end, num);
+    EXPECT_EQ(end, 6);
+    EXPECT_EQ(num, 0);
+    pdt.get_branch_idx_by_node_idx(7, end, num);
+    EXPECT_EQ(end, 7);
+    EXPECT_EQ(num, 1);
+    pdt.get_branch_idx_by_node_idx(8, end, num);
+    EXPECT_EQ(end, 7);
+    EXPECT_EQ(num, 0);
+
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(3), 7);
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(4), 6);
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(5), 2);
+
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(1), 1);
+
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(7), 3);
+
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(9), 5);
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(10), 4);
+
+    EXPECT_EQ(pdt.get_node_idx_by_branch_idx(15), 8);
+}
+
+TEST(PDT_TEST, INDEX_1) {
+    succinct::DefaultTreeBuilder<true> pdt_builder;
+    succinct::trie::compacted_trie_builder
+            <succinct::DefaultTreeBuilder<true>>
+            trieBuilder(pdt_builder);
+    append_to_trie(trieBuilder, "three");
+    append_to_trie(trieBuilder, "trial");
+    append_to_trie(trieBuilder, "triangle");
+    append_to_trie(trieBuilder, "triangular");
+    append_to_trie(trieBuilder, "triangulate");
+    append_to_trie(trieBuilder, "triangulaus");
+    append_to_trie(trieBuilder, "trie");
+    append_to_trie(trieBuilder, "triple");
+    append_to_trie(trieBuilder, "triply");
+    trieBuilder.finish();
+
+    succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+    std::string s("triple");
+    EXPECT_EQ(pdt.index(s), 7);
+    s = "three";
+    EXPECT_EQ(pdt.index(s), 0);
+    s = "triply";
+    EXPECT_EQ(pdt.index(s), 8);
+    s = "trie";
+    EXPECT_EQ(pdt.index(s), 6);
+    s = "triangular";
+    EXPECT_EQ(pdt.index(s), 3);
+    s = "trial";
+    EXPECT_EQ(pdt.index(s), 1);
+    s = "triangle";
+    EXPECT_EQ(pdt.index(s), 2);
+    s = "triangulaus";
+    EXPECT_EQ(pdt.index(s), 5);
+    s = "triangulate";
+    EXPECT_EQ(pdt.index(s), 4);
+
+    s = "tr";
+    EXPECT_EQ(pdt.index(s), -1);
+    s = "";
+    EXPECT_EQ(pdt.index(s), -1);
+    s = "triangulates";
+    EXPECT_EQ(pdt.index(s), -1);
+    s = "pikachu";
+    EXPECT_EQ(pdt.index(s), -1);
+    s = "trip";
+    EXPECT_EQ(pdt.index(s), -1);
+}
+
+TEST(PDT_TEST, INDEX_2) {
+    succinct::DefaultTreeBuilder<true> pdt_builder;
+    succinct::trie::compacted_trie_builder
+            <succinct::DefaultTreeBuilder<true>>
+            trieBuilder(pdt_builder);
+    append_to_trie(trieBuilder, "pace");    // 0
+    append_to_trie(trieBuilder, "package"); // 1
+    append_to_trie(trieBuilder, "pacman");  // 2
+    append_to_trie(trieBuilder, "pancake"); // 3
+    append_to_trie(trieBuilder, "pea");     // 4
+    append_to_trie(trieBuilder, "peek");    // 5
+    append_to_trie(trieBuilder, "peel");    // 6
+    append_to_trie(trieBuilder, "pikachu"); // 7
+    append_to_trie(trieBuilder, "pod");     // 8
+    append_to_trie(trieBuilder, "pokemon"); // 9
+    append_to_trie(trieBuilder, "pool");    // 10
+    append_to_trie(trieBuilder, "proof");   // 11
+    append_to_trie(trieBuilder, "three");   // 12
+    append_to_trie(trieBuilder, "trial");   // 13
+    append_to_trie(trieBuilder, "triangle");// 14
+    append_to_trie(trieBuilder, "triangular"); // 15
+    append_to_trie(trieBuilder, "triangulate");// 16
+    append_to_trie(trieBuilder, "triangulaus");// 17
+    append_to_trie(trieBuilder, "trie");       // 18
+    append_to_trie(trieBuilder, "triple");     // 19
+    append_to_trie(trieBuilder, "triply");     // 20
+    trieBuilder.finish();
+
+    succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+
+    printf("%s\n", get_label(pdt.get_labels()).c_str());
+    printf("%s\n", get_bp_str(pdt.get_bp()).c_str());
+    printf("%s\n", get_branch_str(pdt.get_branches()).c_str());
+    std::string s("pokemon");
+    EXPECT_EQ(pdt.index(s), 9);
+    s = "pikachu";
+    EXPECT_EQ(pdt.index(s), 7);
+    s = "trie";
+    EXPECT_EQ(pdt.index(s), 18);
+    s = "pt";
+    EXPECT_EQ(pdt.index(s), -1);
 }
 
 GTEST_API_ int main(int argc, char ** argv) {
