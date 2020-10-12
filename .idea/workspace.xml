@@ -17,6 +17,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e4f1b26e-bdb8-444f-9e71-56aba1b79626" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/test_pdt_search.dir/test_pdt_search.cpp.o" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/path_decomposed_trie.h" beforeDir="false" afterPath="$PROJECT_DIR$/path_decomposed_trie.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_pdt_search.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test_pdt_search.cpp" afterDir="false" />
     </list>
@@ -62,8 +63,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/test_pdt_search.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="229" column="32" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
+            <state relative-caret-position="220">
+              <caret line="342" column="39" selection-start-line="342" selection-start-column="39" selection-end-line="342" selection-end-column="39" />
               <folding>
                 <element signature="e#43#67#0" expanded="true" />
                 <element signature="e#222#244#0" expanded="true" />
@@ -75,8 +76,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/path_decomposed_trie.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="233">
-              <caret line="68" column="34" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+            <state relative-caret-position="348">
+              <caret line="183" column="52" lean-forward="true" selection-start-line="183" selection-start-column="52" selection-end-line="183" selection-end-column="52" />
               <folding>
                 <element signature="e#155#190#0" expanded="true" />
                 <element signature="e#337#365#0" expanded="true" />
@@ -227,7 +228,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Google Test.PDT_TEST.INDEX_2">
+  <component name="RunManager" selected="Google Test.PDT_TEST.OPERATOR_INDEX_2">
     <configuration name="PDT_TEST.CREATE_1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="path_decomposition_trie" TARGET_NAME="test_pdt_search" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="path_decomposition_trie" RUN_TARGET_NAME="test_pdt_search" TEST_CLASS="PDT_TEST" TEST_METHOD="CREATE_1" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -246,13 +247,13 @@
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="PDT_TEST.SEARCH_UTIL_1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="path_decomposition_trie" TARGET_NAME="test_pdt_search" RUN_TARGET_PROJECT_NAME="path_decomposition_trie" RUN_TARGET_NAME="test_pdt_search" TEST_CLASS="PDT_TEST" TEST_METHOD="SEARCH_UTIL_1" TEST_MODE="SUITE_TEST">
+    <configuration name="PDT_TEST.OPERATOR_INDEX_2" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="path_decomposition_trie" TARGET_NAME="test_pdt_search" RUN_TARGET_PROJECT_NAME="path_decomposition_trie" RUN_TARGET_NAME="test_pdt_search" TEST_CLASS="PDT_TEST" TEST_METHOD="OPERATOR_INDEX_2" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="VARINT_TEST.TEST_1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="path_decomposition_trie" TARGET_NAME="test_varint_encode" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="path_decomposition_trie" RUN_TARGET_NAME="test_varint_encode" TEST_CLASS="VARINT_TEST" TEST_METHOD="TEST_1" TEST_MODE="SUITE_TEST">
+    <configuration name="PDT_TEST.SEARCH_UTIL_1" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" temporary="true" PASS_PARENT_ENVS_2="true" PROJECT_NAME="path_decomposition_trie" TARGET_NAME="test_pdt_search" RUN_TARGET_PROJECT_NAME="path_decomposition_trie" RUN_TARGET_NAME="test_pdt_search" TEST_CLASS="PDT_TEST" TEST_METHOD="SEARCH_UTIL_1" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
@@ -295,19 +296,19 @@
       <item itemvalue="CMake Application.test_path_decomposed_trie" />
       <item itemvalue="CMake Application.test_pdt_search" />
       <item itemvalue="CMake Application.test_varint_encode" />
-      <item itemvalue="Google Test.VARINT_TEST.TEST_1" />
       <item itemvalue="Google Test.PDT_TEST.CREATE_1" />
       <item itemvalue="Google Test.PDT_TEST.SEARCH_UTIL_1" />
       <item itemvalue="Google Test.PDT_TEST.INDEX_1" />
       <item itemvalue="Google Test.PDT_TEST.INDEX_2" />
+      <item itemvalue="Google Test.PDT_TEST.OPERATOR_INDEX_2" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Google Test.PDT_TEST.OPERATOR_INDEX_2" />
+        <item itemvalue="Google Test.PDT_TEST.SEARCH_UTIL_1" />
         <item itemvalue="Google Test.PDT_TEST.INDEX_2" />
         <item itemvalue="Google Test.PDT_TEST.INDEX_1" />
-        <item itemvalue="Google Test.PDT_TEST.SEARCH_UTIL_1" />
         <item itemvalue="Google Test.PDT_TEST.CREATE_1" />
-        <item itemvalue="Google Test.VARINT_TEST.TEST_1" />
       </list>
     </recent_temporary>
   </component>
@@ -325,20 +326,11 @@
       <workItem from="1595326071256" duration="105583000" />
       <workItem from="1596525965630" duration="39448000" />
       <workItem from="1597387179064" duration="403000" />
-      <workItem from="1601982061829" duration="53395000" />
+      <workItem from="1601982061829" duration="63338000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PDT_TEST_CREATE_1 - 2020.10.09 at 18h 29m 31s.xml">
-      <configuration name="PDT_TEST.CREATE_1" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="PDT_TEST_CREATE_1 - 2020.10.10 at 10h 12m 04s.xml">
-      <configuration name="PDT_TEST.CREATE_1" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="PDT_TEST_SEARCH_UTIL_1 - 2020.10.10 at 16h 15m 37s.xml">
-      <configuration name="PDT_TEST.SEARCH_UTIL_1" configurationId="CMakeGoogleTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="PDT_TEST_SEARCH_UTIL_1 - 2020.10.10 at 16h 16m 31s.xml">
       <configuration name="PDT_TEST.SEARCH_UTIL_1" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
@@ -360,9 +352,18 @@
     <history-entry file="PDT_TEST_INDEX_2 - 2020.10.10 at 23h 31m 03s.xml">
       <configuration name="PDT_TEST.INDEX_2" configurationId="CMakeGoogleTestRunConfigurationType" />
     </history-entry>
+    <history-entry file="PDT_TEST_SEARCH_UTIL_1 - 2020.10.12 at 10h 23m 38s.xml">
+      <configuration name="PDT_TEST.SEARCH_UTIL_1" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDT_TEST_SEARCH_UTIL_1 - 2020.10.12 at 10h 25m 48s.xml">
+      <configuration name="PDT_TEST.SEARCH_UTIL_1" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PDT_TEST_OPERATOR_INDEX_2 - 2020.10.12 at 14h 09m 13s.xml">
+      <configuration name="PDT_TEST.OPERATOR_INDEX_2" configurationId="CMakeGoogleTestRunConfigurationType" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="219138000" />
+    <option name="totallyTimeSpent" value="229081000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -389,7 +390,7 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32891566" />
       <window_info anchor="bottom" id="Database Changes" order="7" />
       <window_info anchor="bottom" id="Messages" order="8" weight="0.43253013" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.45421687" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.45421687" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.32891566" />
       <window_info anchor="bottom" id="CMake" order="12" weight="0.32891566" />
@@ -710,8 +711,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/path_decomposed_trie.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="68" column="34" selection-start-line="68" selection-start-column="34" selection-end-line="68" selection-end-column="34" />
+        <state relative-caret-position="348">
+          <caret line="183" column="52" lean-forward="true" selection-start-line="183" selection-start-column="52" selection-end-line="183" selection-end-column="52" />
           <folding>
             <element signature="e#155#190#0" expanded="true" />
             <element signature="e#337#365#0" expanded="true" />
@@ -721,8 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/test_pdt_search.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="229" column="32" selection-start-line="229" selection-start-column="32" selection-end-line="229" selection-end-column="32" />
+        <state relative-caret-position="220">
+          <caret line="342" column="39" selection-start-line="342" selection-start-column="39" selection-end-line="342" selection-end-column="39" />
           <folding>
             <element signature="e#43#67#0" expanded="true" />
             <element signature="e#222#244#0" expanded="true" />

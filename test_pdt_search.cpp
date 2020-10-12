@@ -137,6 +137,50 @@ TEST(PDT_TEST, SEARCH_UTIL_1) {
     EXPECT_EQ(pdt.get_node_idx_by_branch_idx(10), 4);
 
     EXPECT_EQ(pdt.get_node_idx_by_branch_idx(15), 8);
+
+    size_t parent, branch_no;
+    uint8_t branch;
+    pdt.get_parent_node_branch_by_node_idx(7, parent, branch, branch_no);
+    EXPECT_EQ(parent, 1);
+    EXPECT_EQ(branch, static_cast<uint8_t>('p'));
+    EXPECT_EQ(branch_no, 3);
+
+    pdt.get_parent_node_branch_by_node_idx(2, parent, branch, branch_no);
+    EXPECT_EQ(parent, 1);
+    EXPECT_EQ(branch, static_cast<uint8_t>('n'));
+    EXPECT_EQ(branch_no, 1);
+
+    pdt.get_parent_node_branch_by_node_idx(5, parent, branch, branch_no);
+    EXPECT_EQ(parent, 3);
+    EXPECT_EQ(branch, static_cast<uint8_t>('u'));
+    EXPECT_EQ(branch_no, 2);
+
+    pdt.get_parent_node_branch_by_node_idx(1, parent, branch, branch_no);
+    EXPECT_EQ(parent, 0);
+    EXPECT_EQ(branch, static_cast<uint8_t>('r'));
+    EXPECT_EQ(branch_no, 1);
+
+    pdt.get_parent_node_branch_by_node_idx(6, parent, branch, branch_no);
+    EXPECT_EQ(parent, 1);
+    EXPECT_EQ(branch, static_cast<uint8_t>('e'));
+    EXPECT_EQ(branch_no, 2);
+
+    pdt.get_parent_node_branch_by_node_idx(4, parent, branch, branch_no);
+    EXPECT_EQ(parent, 3);
+    EXPECT_EQ(branch, static_cast<uint8_t>('t'));
+    EXPECT_EQ(branch_no, 1);
+
+    pdt.get_parent_node_branch_by_node_idx(8, parent, branch, branch_no);
+    EXPECT_EQ(parent, 7);
+    EXPECT_EQ(branch, static_cast<uint8_t>('y'));
+    EXPECT_EQ(branch_no, 1);
+
+    pdt.get_parent_node_branch_by_node_idx(3, parent, branch, branch_no);
+    EXPECT_EQ(parent, 2);
+    EXPECT_EQ(branch, static_cast<uint8_t>('u'));
+    EXPECT_EQ(branch_no, 1);
+
+    EXPECT_FALSE(pdt.get_parent_node_branch_by_node_idx(0, parent, branch, branch_no));
 }
 
 TEST(PDT_TEST, INDEX_1) {
@@ -228,6 +272,75 @@ TEST(PDT_TEST, INDEX_2) {
     EXPECT_EQ(pdt.index(s), 18);
     s = "pt";
     EXPECT_EQ(pdt.index(s), -1);
+}
+
+inline std::string ubyes2str(std::vector<uint8_t> ubyte) {
+    return std::string(ubyte.begin(), ubyte.end());
+}
+
+TEST(PDT_TEST, OPERATOR_INDEX_1) {
+    succinct::DefaultTreeBuilder<true> pdt_builder;
+    succinct::trie::compacted_trie_builder
+            <succinct::DefaultTreeBuilder<true>>
+            trieBuilder(pdt_builder);
+    append_to_trie(trieBuilder, "three");      // 0
+    append_to_trie(trieBuilder, "trial");      // 1
+    append_to_trie(trieBuilder, "triangle");   // 2
+    append_to_trie(trieBuilder, "triangular"); // 3
+    append_to_trie(trieBuilder, "triangulate");// 4
+    append_to_trie(trieBuilder, "triangulaus");// 5
+    append_to_trie(trieBuilder, "trie");       // 6
+    append_to_trie(trieBuilder, "triple");     // 7
+    append_to_trie(trieBuilder, "triply");     // 8
+    trieBuilder.finish();
+
+    succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+
+    EXPECT_EQ(ubyes2str(pdt[7]), "triple");
+    EXPECT_EQ(ubyes2str(pdt[2]), "triangle");
+    EXPECT_EQ(ubyes2str(pdt[4]), "triangulate");
+    EXPECT_EQ(ubyes2str(pdt[8]), "triply");
+    EXPECT_EQ(ubyes2str(pdt[1]), "trial");
+    EXPECT_EQ(ubyes2str(pdt[6]), "trie");
+    EXPECT_EQ(ubyes2str(pdt[0]), "three");
+    EXPECT_EQ(ubyes2str(pdt[3]), "triangular");
+    EXPECT_EQ(ubyes2str(pdt[5]), "triangulaus");
+}
+
+TEST(PDT_TEST, OPERATOR_INDEX_2) {
+    succinct::DefaultTreeBuilder<true> pdt_builder;
+    succinct::trie::compacted_trie_builder
+            <succinct::DefaultTreeBuilder<true>>
+            trieBuilder(pdt_builder);
+    append_to_trie(trieBuilder, "pace");    // 0
+    append_to_trie(trieBuilder, "package"); // 1
+    append_to_trie(trieBuilder, "pacman");  // 2
+    append_to_trie(trieBuilder, "pancake"); // 3
+    append_to_trie(trieBuilder, "pea");     // 4
+    append_to_trie(trieBuilder, "peek");    // 5
+    append_to_trie(trieBuilder, "peel");    // 6
+    append_to_trie(trieBuilder, "pikachu"); // 7
+    append_to_trie(trieBuilder, "pod");     // 8
+    append_to_trie(trieBuilder, "pokemon"); // 9
+    append_to_trie(trieBuilder, "pool");    // 10
+    append_to_trie(trieBuilder, "proof");   // 11
+    append_to_trie(trieBuilder, "three");   // 12
+    append_to_trie(trieBuilder, "trial");   // 13
+    append_to_trie(trieBuilder, "triangle");// 14
+    append_to_trie(trieBuilder, "triangular"); // 15
+    append_to_trie(trieBuilder, "triangulate");// 16
+    append_to_trie(trieBuilder, "triangulaus");// 17
+    append_to_trie(trieBuilder, "trie");       // 18
+    append_to_trie(trieBuilder, "triple");     // 19
+    append_to_trie(trieBuilder, "triply");     // 20
+    trieBuilder.finish();
+
+    succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+
+    EXPECT_EQ(ubyes2str(pdt[9]), "pokemon");
+    EXPECT_EQ(ubyes2str(pdt[7]), "pikachu");
+    EXPECT_EQ(ubyes2str(pdt[17]), "triangulaus");
+    EXPECT_EQ(ubyes2str(pdt[6]), "peel");
 }
 
 GTEST_API_ int main(int argc, char ** argv) {

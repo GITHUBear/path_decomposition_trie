@@ -42,6 +42,7 @@ namespace succinct {
                         word_positions.push_back(i + 1);
                     }
                 }
+                word_positions.push_back(m_labels.size() + 1);
             }
 
             const std::vector<uint16_t> &get_labels() const {
@@ -77,6 +78,22 @@ namespace succinct {
             size_t get_node_idx_by_branch_idx(size_t branch_idx) const {
                 assert(branch_idx != 0 && m_bp[branch_idx]);
                 return m_bp.rank0(m_bp.successor0(m_bp.find_close(branch_idx) + 1));
+            }
+
+            bool get_parent_node_branch_by_node_idx(
+                    size_t node_idx, size_t& parent_idx,
+                    uint8_t& branch, size_t& branch_no) const {
+                if (!node_idx) return false;
+                size_t node_bp_idx = m_bp.select0(node_idx);
+                assert(node_bp_idx >= 1);
+                size_t parent_open = m_bp.find_open(m_bp.predecessor0(node_bp_idx - 1));
+                assert(m_bp[parent_open]);
+                parent_idx = m_bp.rank0(parent_open);
+                size_t parent_node_bp_end = m_bp.successor0(parent_open);
+                size_t parent_branch_end = m_bp.rank(parent_node_bp_end) - 2;
+                branch_no = parent_node_bp_end - parent_open;
+                branch = m_branches[parent_branch_end + parent_open + 1 - parent_node_bp_end];
+                return true;
             }
 
             // In rocksdb, we will not use string any more, maybe InternalKey...
@@ -146,9 +163,48 @@ namespace succinct {
 
             // It seems that we can't avoid copy for returning result.
             // get `idx`-th string in string set.
-            std::string operator[](size_t idx) const {
-                // TODO
-                return "";
+            std::vector<uint8_t> operator[](size_t idx) const {
+                std::vector<uint8_t> res;
+                if (idx + 1 >= word_positions.size()) return res;
+                uint8_t branch;
+                size_t branch_no = 0;
+                do {
+                    if (word_positions[idx + 1] < 2) continue;
+                    size_t cur_label_idx = word_positions[idx + 1] - 2;
+                    size_t branch_cnt = 0;
+                    while (true) {
+                        if (m_labels[cur_label_idx] ==
+                            DefaultTreeBuilder<Lexicographic>::DELIMITER_FLAG) {
+                            break;
+                        }
+                        if (cur_label_idx && m_labels[cur_label_idx - 1] >> 8 == 1) {
+                            size_t cur_branch_num = static_cast<uint8_t>(m_labels[cur_label_idx - 1]) + 1;
+                            if (branch_no) {
+                                if (branch_cnt + cur_branch_num >= branch_no) {
+                                    if (branch_cnt < branch_no) {
+                                        res.push_back(branch);
+                                    } else {
+                                        res.push_back(static_cast<uint8_t>(m_labels[cur_label_idx]));
+                                    }
+                                }
+                            } else {
+                                res.push_back(static_cast<uint8_t>(m_labels[cur_label_idx]));
+                            }
+                            branch_cnt += cur_branch_num;
+                            if (cur_label_idx == 1) break;
+                            cur_label_idx -= 2;
+                            continue;
+                        } else {
+                            if (!branch_no || branch_cnt >= branch_no) {
+                                res.push_back(static_cast<uint8_t>(m_labels[cur_label_idx]));
+                            }
+                        }
+                        if (!cur_label_idx) break;
+                        cur_label_idx--;
+                    }
+                } while (get_parent_node_branch_by_node_idx(idx, idx, branch, branch_no));
+                std::reverse(res.begin(), res.end());
+                return res;
             }
         };
     }
