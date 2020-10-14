@@ -71,7 +71,7 @@ CMAKE_BINARY_DIR = /Users/dimdew/CLionProjects/path_decomposition_trie/cmake-bui
 CMakeFiles/test_pdt_search.dir/all:
 	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/depend
 	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=16,17,18 "Built target test_pdt_search"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=12,13,14 "Built target test_pdt_search"
 .PHONY : CMakeFiles/test_pdt_search.dir/all
 
 # Include target in all.
@@ -108,7 +108,7 @@ clean: CMakeFiles/test_pdt_search.dir/clean
 CMakeFiles/test_bit_vector.dir/all:
 	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/depend
 	$(MAKE) -f CMakeFiles/test_bit_vector.dir/build.make CMakeFiles/test_bit_vector.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=9,10 "Built target test_bit_vector"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=5,6 "Built target test_bit_vector"
 .PHONY : CMakeFiles/test_bit_vector.dir/all
 
 # Include target in all.
@@ -145,7 +145,7 @@ clean: CMakeFiles/test_bit_vector.dir/clean
 CMakeFiles/test_varint_encode.dir/all:
 	$(MAKE) -f CMakeFiles/test_varint_encode.dir/build.make CMakeFiles/test_varint_encode.dir/depend
 	$(MAKE) -f CMakeFiles/test_varint_encode.dir/build.make CMakeFiles/test_varint_encode.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=19,20 "Built target test_varint_encode"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=15,16 "Built target test_varint_encode"
 .PHONY : CMakeFiles/test_varint_encode.dir/all
 
 # Include target in all.
@@ -182,7 +182,7 @@ clean: CMakeFiles/test_varint_encode.dir/clean
 CMakeFiles/test_bp_vector.dir/all:
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/depend
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=11,12,13 "Built target test_bp_vector"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=7,8,9 "Built target test_bp_vector"
 .PHONY : CMakeFiles/test_bp_vector.dir/all
 
 # Include target in all.
@@ -219,7 +219,7 @@ clean: CMakeFiles/test_bp_vector.dir/clean
 CMakeFiles/test_path_decomposed_trie.dir/all:
 	$(MAKE) -f CMakeFiles/test_path_decomposed_trie.dir/build.make CMakeFiles/test_path_decomposed_trie.dir/depend
 	$(MAKE) -f CMakeFiles/test_path_decomposed_trie.dir/build.make CMakeFiles/test_path_decomposed_trie.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=14,15 "Built target test_path_decomposed_trie"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=10,11 "Built target test_path_decomposed_trie"
 .PHONY : CMakeFiles/test_path_decomposed_trie.dir/all
 
 # Include target in all.
@@ -256,7 +256,7 @@ clean: CMakeFiles/test_path_decomposed_trie.dir/clean
 CMakeFiles/path_decomposition_trie.dir/all:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/depend
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4,5,6,7,8 "Built target path_decomposition_trie"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target path_decomposition_trie"
 .PHONY : CMakeFiles/path_decomposition_trie.dir/all
 
 # Include target in all.
@@ -266,7 +266,7 @@ all: CMakeFiles/path_decomposition_trie.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/path_decomposition_trie.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles 8
+	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/path_decomposition_trie.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/path_decomposition_trie.dir/rule

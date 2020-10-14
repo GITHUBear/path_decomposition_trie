@@ -300,45 +300,14 @@
 			<Option target="test_bp_vector"/>
 			<Option target="path_decomposition_trie"/>
 		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/bit_strings.h">
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/bit_util.h">
-			<Option target="test_bit_vector"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/bit_vector.h">
-			<Option target="test_bit_vector"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/compacted_trie_builder.h">
-			<Option target="test_path_decomposed_trie"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/default_tree_builder.h">
-			<Option target="test_path_decomposed_trie"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/library.cpp">
 			<Option target="path_decomposition_trie"/>
 		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/library.h">
 			<Option target="path_decomposition_trie"/>
 		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/mappable_vector.h">
-			<Option target="test_bit_vector"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/path_decomposed_trie.h">
-			<Option target="test_pdt_search"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/rank_select_bit_vector.h">
-			<Option target="path_decomposition_trie"/>
-		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/test_bit_vector.cpp">
 			<Option target="test_bit_vector"/>
-			<Option target="path_decomposition_trie"/>
 		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector.cpp">
 			<Option target="test_bp_vector"/>
@@ -346,19 +315,12 @@
 		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/test_path_decomposed_trie.cpp">
 			<Option target="test_path_decomposed_trie"/>
-			<Option target="path_decomposition_trie"/>
 		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/test_pdt_search.cpp">
 			<Option target="test_pdt_search"/>
-			<Option target="path_decomposition_trie"/>
 		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/test_varint_encode.cpp">
 			<Option target="test_varint_encode"/>
-			<Option target="path_decomposition_trie"/>
-		</Unit>
-		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/varint_encode.h">
-			<Option target="test_varint_encode"/>
-			<Option target="path_decomposition_trie"/>
 		</Unit>
 		<Unit filename="/Users/dimdew/CLionProjects/path_decomposition_trie/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
