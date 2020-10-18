@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_bp_vector_encode_decode
+
+# Build rule for target.
+test_bp_vector_encode_decode: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_bp_vector_encode_decode
+.PHONY : test_bp_vector_encode_decode
+
+# fast build rule for target.
+test_bp_vector_encode_decode/fast:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/build
+.PHONY : test_bp_vector_encode_decode/fast
+
+#=============================================================================
 # Target rules for targets named test_pdt_search
 
 # Build rule for target.
@@ -194,6 +207,7 @@ balanced_parentheses_vector.o: balanced_parentheses_vector.cpp.o
 
 # target to build an object file
 balanced_parentheses_vector.cpp.o:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/balanced_parentheses_vector.cpp.o
 	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/balanced_parentheses_vector.cpp.o
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/balanced_parentheses_vector.cpp.o
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.o
@@ -205,6 +219,7 @@ balanced_parentheses_vector.i: balanced_parentheses_vector.cpp.i
 
 # target to preprocess a source file
 balanced_parentheses_vector.cpp.i:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/balanced_parentheses_vector.cpp.i
 	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/balanced_parentheses_vector.cpp.i
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/balanced_parentheses_vector.cpp.i
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.i
@@ -216,6 +231,7 @@ balanced_parentheses_vector.s: balanced_parentheses_vector.cpp.s
 
 # target to generate assembly for a file
 balanced_parentheses_vector.cpp.s:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/balanced_parentheses_vector.cpp.s
 	$(MAKE) -f CMakeFiles/test_pdt_search.dir/build.make CMakeFiles/test_pdt_search.dir/balanced_parentheses_vector.cpp.s
 	$(MAKE) -f CMakeFiles/test_bp_vector.dir/build.make CMakeFiles/test_bp_vector.dir/balanced_parentheses_vector.cpp.s
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.s
@@ -305,6 +321,36 @@ test_bp_vector.cpp.s:
 	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.s
 .PHONY : test_bp_vector.cpp.s
 
+test_bp_vector_encode_decode.o: test_bp_vector_encode_decode.cpp.o
+
+.PHONY : test_bp_vector_encode_decode.o
+
+# target to build an object file
+test_bp_vector_encode_decode.cpp.o:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/test_bp_vector_encode_decode.cpp.o
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o
+.PHONY : test_bp_vector_encode_decode.cpp.o
+
+test_bp_vector_encode_decode.i: test_bp_vector_encode_decode.cpp.i
+
+.PHONY : test_bp_vector_encode_decode.i
+
+# target to preprocess a source file
+test_bp_vector_encode_decode.cpp.i:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/test_bp_vector_encode_decode.cpp.i
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.i
+.PHONY : test_bp_vector_encode_decode.cpp.i
+
+test_bp_vector_encode_decode.s: test_bp_vector_encode_decode.cpp.s
+
+.PHONY : test_bp_vector_encode_decode.s
+
+# target to generate assembly for a file
+test_bp_vector_encode_decode.cpp.s:
+	$(MAKE) -f CMakeFiles/test_bp_vector_encode_decode.dir/build.make CMakeFiles/test_bp_vector_encode_decode.dir/test_bp_vector_encode_decode.cpp.s
+	$(MAKE) -f CMakeFiles/path_decomposition_trie.dir/build.make CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.s
+.PHONY : test_bp_vector_encode_decode.cpp.s
+
 test_path_decomposed_trie.o: test_path_decomposed_trie.cpp.o
 
 .PHONY : test_path_decomposed_trie.o
@@ -392,6 +438,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_bp_vector_encode_decode"
 	@echo "... test_pdt_search"
 	@echo "... edit_cache"
 	@echo "... test_bit_vector"
@@ -412,6 +459,9 @@ help:
 	@echo "... test_bp_vector.o"
 	@echo "... test_bp_vector.i"
 	@echo "... test_bp_vector.s"
+	@echo "... test_bp_vector_encode_decode.o"
+	@echo "... test_bp_vector_encode_decode.i"
+	@echo "... test_bp_vector_encode_decode.s"
 	@echo "... test_path_decomposed_trie.o"
 	@echo "... test_path_decomposed_trie.i"
 	@echo "... test_path_decomposed_trie.s"

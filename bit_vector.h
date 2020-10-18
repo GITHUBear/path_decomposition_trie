@@ -230,6 +230,11 @@ namespace succinct {
             m_bits_.steal(builder->move_bits());
         }
 
+        BitVector(const uint64_t* raw_data, uint64_t word_size, size_t bit_size)
+                : m_size_(bit_size)
+                , m_bits_(raw_data, word_size)
+        {}
+
         void swap(BitVector& other) {
             std::swap(other.m_size_, m_size_);
             other.m_bits_.swap(m_bits_);

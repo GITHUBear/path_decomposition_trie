@@ -9,7 +9,7 @@ link_directories("/usr/local/lib")
 
 add_library(path_decomposition_trie
         library.cpp balanced_parentheses_vector.cpp
-        test_bp_vector.cpp)
+        test_bp_vector.cpp test_bp_vector_encode_decode.cpp)
 target_link_libraries(${PROJECT_NAME} gtest)
 
 add_executable(test_bit_vector test_bit_vector.cpp)
@@ -26,3 +26,6 @@ target_link_libraries(test_varint_encode gtest)
 
 add_executable(test_pdt_search balanced_parentheses_vector.cpp test_pdt_search.cpp)
 target_link_libraries(test_pdt_search gtest)
+
+add_executable(test_bp_vector_encode_decode balanced_parentheses_vector.cpp test_bp_vector_encode_decode.cpp)
+target_link_libraries(test_bp_vector_encode_decode gtest)

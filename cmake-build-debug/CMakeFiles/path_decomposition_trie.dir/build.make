@@ -96,11 +96,25 @@ CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.s"
 	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector.cpp -o CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.s
 
+CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o: CMakeFiles/path_decomposition_trie.dir/flags.make
+CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o: ../test_bp_vector_encode_decode.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o -c /Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector_encode_decode.cpp
+
+CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.i"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector_encode_decode.cpp > CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.i
+
+CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.s"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /Users/dimdew/CLionProjects/path_decomposition_trie/test_bp_vector_encode_decode.cpp -o CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.s
+
 # Object files for target path_decomposition_trie
 path_decomposition_trie_OBJECTS = \
 "CMakeFiles/path_decomposition_trie.dir/library.cpp.o" \
 "CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.o" \
-"CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.o"
+"CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.o" \
+"CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o"
 
 # External object files for target path_decomposition_trie
 path_decomposition_trie_EXTERNAL_OBJECTS =
@@ -108,9 +122,10 @@ path_decomposition_trie_EXTERNAL_OBJECTS =
 libpath_decomposition_trie.a: CMakeFiles/path_decomposition_trie.dir/library.cpp.o
 libpath_decomposition_trie.a: CMakeFiles/path_decomposition_trie.dir/balanced_parentheses_vector.cpp.o
 libpath_decomposition_trie.a: CMakeFiles/path_decomposition_trie.dir/test_bp_vector.cpp.o
+libpath_decomposition_trie.a: CMakeFiles/path_decomposition_trie.dir/test_bp_vector_encode_decode.cpp.o
 libpath_decomposition_trie.a: CMakeFiles/path_decomposition_trie.dir/build.make
 libpath_decomposition_trie.a: CMakeFiles/path_decomposition_trie.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libpath_decomposition_trie.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/Users/dimdew/CLionProjects/path_decomposition_trie/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libpath_decomposition_trie.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/path_decomposition_trie.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/path_decomposition_trie.dir/link.txt --verbose=$(VERBOSE)
 

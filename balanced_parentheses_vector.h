@@ -71,6 +71,15 @@ namespace succinct {
             build_min_tree();
         }
 
+        BpVector(const uint64_t* raw_data,
+                 uint64_t word_size,
+                 size_t bit_size,
+                 bool with_select_hints = false,
+                 bool with_select0_hints = false)
+                 : RsBitVector(raw_data, word_size, bit_size, with_select_hints, with_select0_hints) {
+            build_min_tree();
+        }
+
         void swap(BpVector& other) {
             RsBitVector::swap(other);
             std::swap(m_internal_nodes_, other.m_internal_nodes_);
