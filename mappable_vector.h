@@ -102,6 +102,10 @@ namespace succinct {
             return m_data;
         }
 
+        inline T const& back() const {
+            return (*this)[m_size - 1];
+        }
+
 //        inline void prefetch(size_t i) const {
 //            succinct::intrinsics::prefetch(m_data + i);
 //        }
