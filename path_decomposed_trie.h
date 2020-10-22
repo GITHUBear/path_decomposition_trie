@@ -15,7 +15,7 @@ namespace succinct {
         template<bool Lexicographic = false>
         struct DefaultPathDecomposedTrie {
             mappable_vector<uint16_t> m_labels;      // `L` in paper
-            mappable_vector<uint8_t> m_branches;     // `B` in paper
+            mappable_vector<uint16_t> m_branches;     // `B` in paper
             BpVector m_bp;                       // `BP` in paper
             // TODO: Use elias-fano encoding later.
             mappable_vector<uint64_t> word_positions;
@@ -43,13 +43,13 @@ namespace succinct {
                         tmp_vec.push_back(i + 1);
                     }
                 }
-                tmp_vec.push_back(static_cast<uint64_t>(m_labels.size() + 1));
+                tmp_vec.push_back(static_cast<uint64_t>(m_labels.size()));
                 word_positions.steal(tmp_vec);
             }
 
             // The constructor is used for decoding.
             DefaultPathDecomposedTrie(const uint16_t* label_ptr, uint64_t label_len,
-                                      const uint8_t* branch_ptr, uint64_t branch_len,
+                                      const uint16_t* branch_ptr, uint64_t branch_len,
                                       const uint64_t* raw_data, uint64_t word_size, size_t bit_size,
                                       const uint64_t* pos_ptr, uint64_t pos_len)
                                       : m_labels(label_ptr, label_len)
@@ -61,7 +61,7 @@ namespace succinct {
                 return m_labels;
             }
 
-            const mappable_vector<uint8_t> &get_branches() const {
+            const mappable_vector<uint16_t> &get_branches() const {
                 return m_branches;
             }
 
@@ -94,7 +94,7 @@ namespace succinct {
 
             bool get_parent_node_branch_by_node_idx(
                     size_t node_idx, size_t& parent_idx,
-                    uint8_t& branch, size_t& branch_no) const {
+                    uint16_t& branch, size_t& branch_no) const {
                 if (!node_idx) return false;
                 size_t node_bp_idx = m_bp.select0(node_idx);
                 assert(node_bp_idx >= 1);
@@ -110,7 +110,9 @@ namespace succinct {
 
             // In rocksdb, we will not use string any more, maybe InternalKey...
             // get the index of `val` in the string set, if not exists return -1.
-            int index(const std::string &val) const {
+            int index(const std::string &s) const {
+                std::vector<uint16_t> val(s.begin(), s.end());
+                val.push_back(DefaultTreeBuilder<Lexicographic>::WORD_EOF);
                 size_t len = val.size();
                 size_t cur_node_idx = 0;
                 size_t matching_idx = 0;
@@ -131,11 +133,10 @@ namespace succinct {
                             return -1;
                         }
                         if (m_labels[cur_label_idx] >> 8 == 1) {
-                            assert(m_labels[cur_label_idx + 1] >> 8 == 0);
-                            auto branch0 = static_cast<uint8_t>(m_labels[cur_label_idx + 1]);
+                            auto branch0 = m_labels[cur_label_idx + 1];
                             size_t cur_branch_num = static_cast<uint8_t>(m_labels[cur_label_idx]) + 1;
 
-                            if (branch0 == static_cast<uint8_t>(val[matching_idx])) {
+                            if (branch0 == val[matching_idx]) {
                                 // update `cur_branch_idx`.
                                 cur_branch_idx += cur_branch_num;
                                 matching_idx++;
@@ -147,7 +148,7 @@ namespace succinct {
                                 bool find_branch = false;
                                 size_t cur_branch_end = cur_branch_idx + cur_branch_num - 1;
                                 while (cur_branch_idx <= cur_branch_end) {
-                                    if (m_branches[cur_branch_idx] == static_cast<uint8_t>(val[matching_idx])) {
+                                    if (m_branches[cur_branch_idx] == val[matching_idx]) {
                                         matching_idx++;
                                         // update `cur_node_idx`.
                                         cur_node_idx = get_node_idx_by_branch_idx(
@@ -162,7 +163,7 @@ namespace succinct {
                                 return -1;
                             }
                         } else {
-                            if (m_labels[cur_label_idx] == static_cast<uint8_t>(val[matching_idx])) {
+                            if (m_labels[cur_label_idx] == val[matching_idx]) {
                                 matching_idx++;
                             } else {
                                 return -1;
@@ -178,7 +179,7 @@ namespace succinct {
             std::vector<uint8_t> operator[](size_t idx) const {
                 std::vector<uint8_t> res;
                 if (idx + 1 >= word_positions.size()) return res;
-                uint8_t branch;
+                uint16_t branch;
                 size_t branch_no = 0;
                 do {
                     if (word_positions[idx + 1] < 2) continue;
@@ -216,6 +217,7 @@ namespace succinct {
                     }
                 } while (get_parent_node_branch_by_node_idx(idx, idx, branch, branch_no));
                 std::reverse(res.begin(), res.end());
+                res.pop_back();
                 return res;
             }
         };

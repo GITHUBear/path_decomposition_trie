@@ -24,6 +24,8 @@ std::string get_label(const succinct::mappable_vector<uint16_t>& labels) {
             label += std::to_string(uint8_t(byte));
         } else if (byte >> 8 == 2) {
             label += '#';
+        } else if (byte >> 8 == 4) {
+            label += '$';
         } else {
             label += (char(byte) ? char(byte) : '$');
         }
@@ -45,10 +47,12 @@ std::string get_bp_str(const succinct::BpVector& bp) {
     return bp_str;
 }
 
-std::string get_branch_str(const succinct::mappable_vector<uint8_t>& branches) {
+std::string get_branch_str(const succinct::mappable_vector<uint16_t>& branches) {
     std::string branch_str;
     for (size_t i = 0; i < static_cast<size_t>(branches.size()); i++) {
-        branch_str += static_cast<char>(branches[i]);
+        if (branches[i] == 512) branch_str += '#';
+        else if (branches[i] == 1024) branch_str += '$';
+        else branch_str += static_cast<char>(branches[i]);
     }
     return branch_str;
 }
@@ -70,7 +74,7 @@ TEST(PDT_TEST, CREATE_1) {
     trieBuilder.finish();
 
     succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
-    EXPECT_EQ(get_label(pdt.get_labels()), "t0hree#i1a0l#g0le#la1r#e#s##l0e##");
+    EXPECT_EQ(get_label(pdt.get_labels()), "t0hree$#i1a0l$#g0le$#la1r$#e$#s$#$#l0e$#$#");
     EXPECT_EQ(get_branch_str(pdt.get_branches()), "rpenuuty");
     EXPECT_EQ(get_bp_str(pdt.get_bp()), "(()((()()(())))())");
     for (size_t i = 0; i < static_cast<size_t>(pdt.word_positions.size()); i++) {
@@ -140,7 +144,7 @@ TEST(PDT_TEST, SEARCH_UTIL_1) {
     EXPECT_EQ(pdt.get_node_idx_by_branch_idx(15), 8);
 
     size_t parent, branch_no;
-    uint8_t branch;
+    uint16_t branch;
     pdt.get_parent_node_branch_by_node_idx(7, parent, branch, branch_no);
     EXPECT_EQ(parent, 1);
     EXPECT_EQ(branch, static_cast<uint8_t>('p'));
@@ -275,6 +279,30 @@ TEST(PDT_TEST, INDEX_2) {
     EXPECT_EQ(pdt.index(s), -1);
 }
 
+TEST(PDT_TEST, INDEX_3) {
+    succinct::DefaultTreeBuilder<true> pdt_builder;
+    succinct::trie::compacted_trie_builder
+            <succinct::DefaultTreeBuilder<true>>
+            trieBuilder(pdt_builder);
+    std::vector<std::string> strs{"p", "pa", "pac",
+                                  "pace", "pack", "packa", "package", "pacman", "pancake",
+                                  "pea", "peek", "peel", "pikachu",
+                                  "pod", "poe", "poem", "pok", "poke", "pokem", "pokemon",
+                                  "pool", "proof",
+                                  "three", "trial", "triangle", "triangular",
+                                  "triangulaus", "trie", "triple", "triply"};
+    for (auto s : strs) {
+        append_to_trie(trieBuilder, s);
+    }
+    trieBuilder.finish();
+
+    succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+
+    for (size_t i = 0; i < strs.size(); i++) {
+        EXPECT_EQ(pdt.index(strs[i]), i);
+    }
+}
+
 inline std::string ubyes2str(std::vector<uint8_t> ubyte) {
     return std::string(ubyte.begin(), ubyte.end());
 }
@@ -296,16 +324,23 @@ TEST(PDT_TEST, OPERATOR_INDEX_1) {
     trieBuilder.finish();
 
     succinct::trie::DefaultPathDecomposedTrie<true> pdt(trieBuilder);
+    printf("%s\n", get_label(pdt.get_labels()).c_str());
+    printf("%s\n", get_bp_str(pdt.get_bp()).c_str());
+    printf("%s\n", get_branch_str(pdt.get_branches()).c_str());
+    for(auto index : pdt.word_positions) {
+        printf("%llu ", index);
+    }
+    printf("\n");
 
     EXPECT_EQ(ubyes2str(pdt[7]), "triple");
     EXPECT_EQ(ubyes2str(pdt[2]), "triangle");
     EXPECT_EQ(ubyes2str(pdt[4]), "triangulate");
-    EXPECT_EQ(ubyes2str(pdt[8]), "triply");
     EXPECT_EQ(ubyes2str(pdt[1]), "trial");
     EXPECT_EQ(ubyes2str(pdt[6]), "trie");
     EXPECT_EQ(ubyes2str(pdt[0]), "three");
     EXPECT_EQ(ubyes2str(pdt[3]), "triangular");
     EXPECT_EQ(ubyes2str(pdt[5]), "triangulaus");
+    EXPECT_EQ(ubyes2str(pdt[8]), "triply");
 }
 
 TEST(PDT_TEST, OPERATOR_INDEX_2) {

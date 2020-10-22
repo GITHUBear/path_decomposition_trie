@@ -24,7 +24,10 @@ namespace succinct {
                 assert(node_stack.empty() && last_string.empty());
             }
 
-            void append(std::vector<uint8_t>& bytes) {
+            void append(std::vector<uint8_t>& raw_bytes) {
+                std::vector<uint16_t> bytes(raw_bytes.begin(), raw_bytes.end());
+                bytes.push_back(1024);
+
                 assert(!is_finish_);
                 if (bytes.empty()) return;
 
@@ -44,7 +47,7 @@ namespace succinct {
                     assert(match_res.first != bytes.end() &&
                            match_res.second != last_string.end());
                     // Sorted
-                    assert(*match_res.first > *match_res.second);
+                    assert(*match_res.second == 1024 || *match_res.first > *match_res.second);
 
                     size_t mismatch_idx = match_res.first - bytes.begin();
                     size_t split_node_idx = 0;
@@ -61,7 +64,7 @@ namespace succinct {
                         node& child = node_stack[idx];
                         typename TreeBuilder::representation_type subtrie =
                                 builder.node(child.children, &last_string[0], child.path_len, child.skip);
-                        uint8_t branch_byte = last_string[child.path_len - 1];
+                        uint16_t branch_byte = last_string[child.path_len - 1];
                         node_stack[idx - 1].children.push_back(std::make_pair(branch_byte, subtrie));
                     }
                     node_stack.resize(split_node_idx + 1);
@@ -72,7 +75,7 @@ namespace succinct {
                                 builder.node(split_node.children, &last_string[0],
                                         mismatch_idx + 1,
                                         split_node.path_len + split_node.skip - mismatch_idx - 1);
-                        uint8_t branching_char = last_string[mismatch_idx];
+                        uint16_t branching_char = last_string[mismatch_idx];
                         split_node.children.clear();
                         split_node.children.push_back(std::make_pair(branching_char, subtrie));
                         split_node.skip = mismatch_idx - split_node.path_len;
@@ -96,7 +99,7 @@ namespace succinct {
                     node& child = node_stack[node_idx];
                     typename TreeBuilder::representation_type subtrie =
                             builder.node(child.children, &last_string[0], child.path_len, child.skip);
-                    uint8_t branching_char = last_string[child.path_len - 1];
+                    uint16_t branching_char = last_string[child.path_len - 1];
                     node_stack[node_idx - 1].children.push_back(std::make_pair(branching_char, subtrie));
                 }
 
@@ -133,7 +136,7 @@ namespace succinct {
                 size_t path_len;
                 size_t skip;
 
-                typedef std::pair<uint8_t, typename TreeBuilder::representation_type> subtrie;
+                typedef std::pair<uint16_t, typename TreeBuilder::representation_type> subtrie;
                 std::vector<subtrie> children;
             };
 
@@ -141,7 +144,7 @@ namespace succinct {
 
             TreeBuilder& builder;
             std::vector<node> node_stack;
-            std::vector<uint8_t> last_string;
+            std::vector<uint16_t> last_string;
 
         };
     }
